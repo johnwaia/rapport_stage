@@ -1,0 +1,114 @@
+% !TEX root = ../main.tex
+
+\chapter{Méthodologie et environnement de travail}
+
+\section{Méthodologie de travail}
+
+Le projet est mené selon la méthodologie Scrum, avec des sprints d'une
+durée de deux semaines. Cette organisation rythme l'ensemble du travail
+de l'équipe et structure la planification des développements.
+
+Chaque journée est ponctuée de deux daily meetings :
+
+\begin{itemize}
+  \item un premier avec le bureau ISI.nc, permettant de faire le point
+        sur l'avancement individuel et les éventuels blocages internes ;
+  \item un second avec l'équipe FPG (Product Owner, développeurs, tech
+        lead), pour synchroniser l'avancement du sprint côté client.
+\end{itemize}
+
+En début de sprint, des séances de \textbf{Poker Planning} sont organisées
+pour estimer collectivement la complexité des tickets à traiter, favorisant
+une meilleure répartition de la charge de travail au sein de l'équipe.
+
+Le suivi des tickets est assuré via l'outil \textbf{OpenProject}
+\imgw{logo_open_project.jpeg}{1.5cm}, qui centralise le backlog, les
+sprints en cours et l'état d'avancement de chaque tâche. La communication
+interne quotidienne, quant à elle, s'effectue via \textbf{Mattermost}
+\imgw{logo_mattermost.png}{1.5cm}.
+
+Les fonctionnalités sont décomposées en \textit{User Stories}, détaillant
+les besoins fonctionnels du point de vue de l'utilisateur final. Ce
+découpage a par exemple été appliqué à la fonctionnalité d'historisation,
+cœur de ma mission (voir découpage détaillé en Annexe~\ref{annexe:us}).
+
+\section{Stack technique}
+
+\subsection{Développement}
+\begin{itemize}
+  \item \textbf{VS Code} \imgw{logo_vs_code.png}{1.2cm} — IDE principal
+        utilisé pour l'ensemble des développements, frontend comme backend.
+\end{itemize}
+
+\subsection{Frontend}
+\begin{itemize}
+  \item \textbf{Angular} \imgw{logo_angular.jpeg}{1.2cm} — framework
+        principal du frontend, associé à \textbf{PrimeNG} comme
+        librairie de composants UI, offrant des composants riches
+        (tableaux, formulaires, timeline, etc.) directement exploitables.
+  \item \textbf{Gizmo} \imgw{logo_gizmo.png}{1.2cm} — application
+        constituant l'interface destinée aux structures adhérentes.
+\end{itemize}
+
+\subsection{Backend}
+\begin{itemize}
+  \item \textbf{Python / Django} \imgw{logo_django_python.webp}{1.5cm},
+        associé à \textbf{Django REST Framework} pour l'exposition d'une
+        API REST consommée par le frontend Angular.
+  \item \textbf{django-simple-history} — bibliothèque permettant
+        l'historisation automatique des modèles Django, point central
+        de la mission qui m'a été confiée et détaillée au
+        Chapitre~\ref{chap:historisation}.
+\end{itemize}
+
+\subsection{Base de données}
+\begin{itemize}
+  \item \textbf{PostgreSQL} \imgw{logo_postgres.png}{1.2cm} — système de
+        gestion de base de données relationnelle utilisé pour l'ensemble
+        du projet.
+  \item \textbf{DBeaver} \imgw{logo_dbeaver.jpeg}{1.2cm} — client de base
+        de données utilisé pour l'inspection et le débogage direct des
+        tables, notamment des tables d'historique.
+\end{itemize}
+
+\subsection{DevOps et infrastructure}
+\begin{itemize}
+  \item \textbf{GitLab} \imgw{logo_gitlab.png}{1.2cm} — versionning du
+        code, intégration et déploiement continus (CI/CD), gestion des
+        \textit{merge requests} et revues de code.
+  \item \textbf{Linux} \imgw{logo_linux.png}{1.2cm} — système
+        d'exploitation utilisé comme environnement de développement.
+  \item \textbf{Docker} \imgw{logo_docker.png}{1.2cm} — conteneurisation
+        des différents services du projet : base de données, stockage de
+        fichiers (MinIO), backend Django.
+\end{itemize}
+
+\section{Architecture générale du projet}
+
+L'architecture du projet suit un modèle classique d'application web
+découplée :
+
+\begin{itemize}
+  \item un \textbf{frontend Angular} qui consomme une \textbf{API REST
+        Django} exposée via Django REST Framework ;
+  \item un \textbf{stockage de fichiers} (documents justificatifs,
+        pièces jointes) assuré par \textbf{MinIO}, une solution de
+        stockage objet compatible avec le protocole S3 ;
+  \item une \textbf{génération de rapports PDF} déléguée à un serveur
+        \textbf{JasperReports} externe, sollicité par le backend pour la
+        production de documents officiels (attestations, décisions de
+        financement, etc.).
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \imgw{schema_architecture.png}{0.8\textwidth}
+  \caption{Schéma de l'architecture générale du projet}
+  \label{fig:architecture}
+\end{figure}
+
+Cette architecture découplée permet une séparation claire des
+responsabilités : le frontend se concentre sur l'expérience utilisateur,
+le backend sur la logique métier et l'accès aux données, tandis que les
+services externes (MinIO, JasperReports) prennent en charge des besoins
+spécialisés sans alourdir le cœur applicatif.

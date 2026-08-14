@@ -1,0 +1,30 @@
+% !TEX root = ../main.tex
+
+\chapter{Annexes}
+
+\section{Découpage en User Stories de la fonctionnalité d'historisation}
+\label{annexe:us}
+
+% Insérer ici le découpage détaillé fourni en document annexe.
+[À compléter à partir du document de découpage en User Stories fourni.]
+
+\section{Extraits de code significatifs}
+
+% Sélectionner ici, parmi les échanges techniques, les extraits les
+% plus représentatifs (ex : résolution des données de référence,
+% gestion du modèle DocumentLabel, logique de fusion d'événements).
+
+\begin{lstlisting}[language=Python, caption={Exemple : modèle intermédiaire pour l'historisation M2M}]
+class DocumentLabel(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, on_delete=models.CASCADE)
+    history = HistoricalRecords()
+\end{lstlisting}
+
+\section{Captures d'écran de l'interface d'historique}
+
+\begin{figure}[H]
+  \centering
+  \imgw{screenshot_historique_detail.png}{0.8\textwidth}
+  \caption{Vue détaillée d'une entrée d'historique}
+\end{figure}

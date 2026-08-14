@@ -1,0 +1,208 @@
+% !TEX root = ../main.tex
+
+\chapter{Mission principale~: l'historisation des modifications}
+\label{chap:historisation}
+
+\section{Contexte et besoin métier}
+
+Le FPG traite quotidiennement un grand nombre de dossiers de financement,
+impliquant des montants financiers conséquents et des données sensibles
+concernant les structures adhérentes et leurs collaborateurs. Dans ce
+contexte, la capacité à \textbf{tracer et afficher l'historique complet
+des modifications} apportées à un dossier constitue un besoin métier
+essentiel.
+
+Concrètement, il s'agissait de permettre, pour chaque demande de
+financement, chaque structure adhérente et chaque compte collaborateur,
+de répondre à trois questions pour chaque modification apportée :
+\textbf{qui} a effectué la modification, \textbf{quand}, et
+\textbf{quelle était l'ancienne valeur par rapport à la nouvelle}. Cette
+fonctionnalité répond à des enjeux de :
+
+\begin{itemize}
+  \item \textbf{traçabilité} — savoir précisément ce qui a été modifié
+        et par qui à chaque étape du traitement d'un dossier ;
+  \item \textbf{audit} — permettre un contrôle a posteriori du
+        traitement des demandes de financement ;
+  \item \textbf{résolution de litiges} — disposer de preuves fiables en
+        cas de contestation d'une décision ou d'une donnée par une
+        structure adhérente.
+\end{itemize}
+
+\section{Choix techniques}
+
+\subsection{django-simple-history}
+
+Le choix s'est porté sur la bibliothèque \texttt{django-simple-history},
+qui génère automatiquement une table \texttt{\_history} pour chaque
+modèle historisé. Chaque opération \texttt{INSERT}, \texttt{UPDATE} ou
+\texttt{DELETE} effectuée sur un modèle historisé donne lieu à
+l'enregistrement d'une nouvelle ligne dans cette table, capturant
+l'intégralité de l'état de l'objet à cet instant, ainsi que l'utilisateur
+responsable de la modification et l'horodatage associé.
+
+\subsection{Le \texttt{HistoryService}}
+
+Afin d'éviter la duplication de logique entre les différentes entités
+historisées, j'ai construit un service dédié, le \texttt{HistoryService},
+centralisant la récupération et la mise en forme de l'historique pour
+chaque type d'entité. Ce service constitue le point d'entrée unique
+utilisé par les différents endpoints d'API exposant de l'historique.
+
+\begin{lstlisting}[language=Python, caption={Extrait simplifié du \texttt{HistoryService}}]
+class HistoryService:
+    def get_history(self, entity, entity_id):
+        history_records = self._fetch_history(entity, entity_id)
+        resolved = self._resolve_references(history_records)
+        return self._format_for_frontend(resolved)
+\end{lstlisting}
+
+\subsection{Système de snapshots}
+
+Une demande de financement regroupe de nombreuses entités liées
+(stagiaires, allocations budgétaires, tiers bénéficiaires, règlements).
+Comparer indépendamment l'historique de chacune de ces entités aurait
+rendu difficile la reconstitution d'un état cohérent du dossier à un
+instant donné.
+
+J'ai donc mis en place un système de \textbf{snapshots}, matérialisé par
+le modèle \texttt{FundingRequestSnapshot}, capturant à chaque sauvegarde
+un état complet et cohérent de l'ensemble des entités liées à une demande
+de financement. La comparaison entre deux snapshots successifs, via une
+méthode \texttt{diff\_against}, permet d'obtenir de façon fiable
+l'ensemble des changements survenus entre deux états du dossier.
+
+\section{Défis techniques rencontrés}
+
+\subsection{Modèles non rattachés au système de snapshot}
+
+Certains modèles — documents, rapports, comptes bancaires — ne sont pas
+directement rattachés au système de snapshot décrit précédemment. Pour
+ces entités, il a fallu développer une logique de comparaison
+indépendante, s'appuyant directement sur les tables d'historique
+générées par \texttt{simple\_history}. Cette logique parcourt
+chronologiquement chaque enregistrement d'historique afin de détecter les
+transitions d'état pertinentes : création, suppression, ou changement de
+visibilité d'un document.
+
+\subsection{Relations Many-to-Many}
+
+L'historisation des relations Many-to-Many s'est révélée
+particulièrement délicate, notamment pour les labels associés aux
+documents. Le mécanisme d'historisation automatique des relations M2M
+fourni par \texttt{simple\_history} s'est avéré insuffisant pour ce cas
+d'usage : il ne permettait pas de restituer de façon fiable et lisible
+les ajouts et retraits de labels au fil du temps.
+
+La solution retenue a consisté à créer un modèle intermédiaire explicite,
+\texttt{DocumentLabel}, disposant de son propre historique. Cette
+approche, bien que plus verbeuse à mettre en place, offre un contrôle
+total sur la manière dont les associations sont historisées et restituées.
+
+\subsection{Résolution des données de référence}
+
+Les changements bruts capturés par \texttt{django-simple-history}
+contiennent des identifiants techniques (clés étrangères) plutôt que des
+libellés métier directement compréhensibles par un utilisateur final. Un
+changement de secteur d'activité, par exemple, n'apparaît dans
+l'historique brut que sous la forme d'un identifiant numérique.
+
+J'ai donc développé une logique de résolution systématique, transformant
+chaque identifiant en son libellé métier correspondant (secteurs
+d'activité, codes NAF, codes ROME, catégories socio-professionnelles,
+pays, etc.) avant transmission des données au frontend, garantissant un
+affichage directement exploitable par les utilisateurs.
+
+\subsection{Cohérence entre données dupliquées}
+
+Au cours du développement, j'ai identifié un bug affectant certains
+champs relatifs aux employés (fonction, catégorie socio-professionnelle,
+niveau de formation) : ces champs étaient accidentellement réinitialisés
+à \texttt{NULL} lors de mises à jour partielles ne les concernant pas. La
+cause provenait d'une incohérence entre la structure du payload envoyé
+par le frontend et celle attendue côté backend. Ce bug, bien que sans
+lien direct avec l'historisation, a été détecté et corrigé grâce à
+l'analyse des tables d'historique, qui révélaient clairement les
+réinitialisations non désirées.
+
+\subsection{Fusion d'événements liés}
+
+Une même action utilisateur peut déclencher plusieurs sauvegardes
+techniques distinctes côté backend (par exemple lors de la mise à jour
+en cascade de plusieurs entités liées). Sans traitement particulier,
+l'historique présenté à l'utilisateur se serait retrouvé fragmenté en de
+multiples entrées correspondant en réalité à une seule action métier.
+
+J'ai donc mis en place une logique de regroupement des événements
+survenus dans une fenêtre de temps rapprochée, afin de présenter une vue
+cohérente et lisible de l'historique, alignée avec la perception qu'a
+l'utilisateur de ses propres actions.
+
+\section{Développement frontend}
+
+\subsection{Composant réutilisable \texttt{tab-changes}}
+
+Côté frontend, j'ai conçu un composant Angular réutilisable,
+\texttt{tab-changes}, chargé d'afficher l'historique des modifications
+sous forme de timeline chronologique, à l'aide du composant PrimeNG
+\texttt{p-timeline}.
+
+\begin{figure}[H]
+  \centering
+  \imgw{screenshot_historique.png}{0.8\textwidth}
+  \caption{Aperçu du composant d'historique final}
+  \label{fig:historique}
+\end{figure}
+
+\subsection{Regroupement thématique et labels}
+
+Les modifications sont regroupées par thématique (formation, montage
+financier, stagiaires, tiers bénéficiaires, règlements, documents), avec
+un système de correspondance associant chaque champ technique à son
+libellé métier affiché à l'utilisateur.
+
+\subsection{Distinction visuelle des types de modification}
+
+Un code couleur permet de distinguer immédiatement les ajouts, les
+modifications et les suppressions, facilitant la lecture rapide de
+l'historique par les utilisateurs métier.
+
+\subsection{Gestion des cas particuliers d'affichage}
+
+Une attention particulière a été portée à la gestion de cas d'affichage
+spécifiques : valeurs numériques, dates, booléens, ainsi que des objets
+composites tels qu'un RIB accompagné de son justificatif, ou un organisme
+de formation disposant de plusieurs attributs à afficher conjointement.
+
+\subsection{Réutilisabilité de l'architecture}
+
+Le pattern d'historique ainsi développé a ensuite été répliqué sur
+plusieurs entités du système : demandes de financement, structures
+adhérentes, comptes collaborateurs et employés. Cette réplication a
+démontré la solidité et la réutilisabilité de l'architecture mise en
+place, tant côté backend (\texttt{HistoryService}, snapshots) que côté
+frontend (composant \texttt{tab-changes}).
+
+\section{Méthodologie de débogage}
+
+Face aux anomalies rencontrées durant le développement, j'ai adopté une
+démarche de diagnostic systématique, consistant à vérifier l'ensemble de
+la chaîne technique afin d'isoler précisément la source d'un
+dysfonctionnement :
+
+\begin{enumerate}
+  \item vérification des données au niveau de la \textbf{base de
+        données} elle-même, à l'aide de DBeaver ;
+  \item inspection du \textbf{service backend} concerné
+        (\texttt{HistoryService} ou logique associée) ;
+  \item contrôle du \textbf{serializer DRF} responsable de la mise en
+        forme des données exposées par l'API ;
+  \item validation du contenu exact des échanges via l'\textbf{onglet
+        réseau} des outils de développement du navigateur ;
+  \item inspection du \textbf{composant frontend} recevant et affichant
+        les données.
+\end{enumerate}
+
+Le \textbf{shell Django interactif} a également constitué un outil
+précieux, me permettant d'inspecter directement l'état des données et
+des tables d'historique en base, sans passer par l'interface graphique.

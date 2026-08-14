@@ -1,0 +1,35 @@
+% !TEX root = ../main.tex
+
+\chapter{Difficultés rencontrées et solutions apportées}
+
+Au-delà des difficultés techniques déjà détaillées au
+Chapitre~\ref{chap:historisation}, plusieurs difficultés d'un autre ordre
+ont marqué ce stage.
+
+\section{Montée en compétence sur un existant complexe}
+
+Le projet FPG constituait, au démarrage du stage, une base de code
+existante et déjà conséquente. La compréhension de son organisation, de
+ses conventions internes et de la logique métier sous-jacente a
+nécessité un temps d'adaptation important avant de pouvoir intervenir
+efficacement, en particulier sur un sujet aussi transverse que
+l'historisation, qui touche de nombreuses entités du système.
+
+\section{Coordination entre deux équipes}
+
+Le travail au sein d'un dispositif impliquant deux équipes distinctes —
+le bureau ISI.nc et l'équipe produit FPG — a nécessité une adaptation
+constante en termes de communication : reformuler les problématiques
+techniques pour un public parfois moins technique côté FPG, et à
+l'inverse, faire remonter les contraintes métier auprès de l'équipe
+ISI.nc.
+
+\section{Environnement de développement à dépendances externes}
+
+L'environnement de développement reposait sur plusieurs services
+externes conteneurisés via Docker (base de données, MinIO) ainsi que sur
+un service tiers, JasperReports, pour la génération de rapports PDF. La
+gestion de ces dépendances, parfois source de dysfonctionnements
+difficiles à diagnostiquer (services non démarrés, versions
+incompatibles), a constitué un apprentissage à part entière sur la
+robustesse d'un environnement de développement full stack.

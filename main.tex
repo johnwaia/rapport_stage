@@ -1,0 +1,99 @@
+\documentclass[12pt, a4paper]{report}
+
+% ===== Encodage et langue =====
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% ===== Mise en page =====
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ===== Paquets utiles =====
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue,
+  pdftitle={Rapport de stage},
+  pdfauthor={Prénom NOM}
+}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{ifthen}
+\usepackage{etoolbox}
+
+% ===== Style du code =====
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  backgroundcolor=\color{gray!5},
+  captionpos=b
+}
+
+% ===== En-tête / pied de page =====
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{15pt}
+\fancyhead[L]{Rapport de stage}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+% ===== Macro pour images avec placeholder si manquantes =====
+\newcommand{\imgw}[2]{%
+  \IfFileExists{images/#1}{\includegraphics[width=#2]{#1}}{\fbox{\parbox{#2}{\centering\small [Image manquante]}}}%
+}
+
+\begin{document}
+
+% =====================================================================
+% PAGE DE GARDE
+% =====================================================================
+\input{chapitres/page_de_garde}
+
+% =====================================================================
+% REMERCIEMENTS
+% =====================================================================
+\input{chapitres/remerciements}
+
+% =====================================================================
+% SOMMAIRE
+% =====================================================================
+\tableofcontents
+\listoffigures
+\newpage
+
+% =====================================================================
+% CHAPITRES
+% =====================================================================
+\input{chapitres/introduction}
+\input{chapitres/methodologie}
+\input{chapitres/historisation}
+\input{chapitres/competences}
+\input{chapitres/difficultes}
+\input{chapitres/conclusion}
+\input{chapitres/bibliographie}
+
+% =====================================================================
+% ANNEXES
+% =====================================================================
+\appendix
+\input{chapitres/annexes}
+
+\end{document}
