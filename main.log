@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.8.14)  14 AUG 2026 15:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.8.14)  18 AUG 2026 15:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -390,37 +390,38 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
 Package french3.ldf Info: Setting StandardItemizeEnv=true for
 (french3.ldf)             compatibility with enumitem package,
-(french3.ldf)             reported on input line 63.
+(french3.ldf)             reported on input line 67.
 Package french3.ldf Info: Setting StandardEnumerateEnv=true for
 (french3.ldf)             compatibility with enumitem package,
-(french3.ldf)             reported on input line 63.
+(french3.ldf)             reported on input line 67.
  (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count333
-) (./main.aux)
+) (./main.aux
+Package babel Info: 'french' activates 'french' shorthands.
+(babel)             Reported on input line 11.
+)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-Package babel Info: 'french' activates 'french' shorthands.
-(babel)             Reported on input line 63.
-LaTeX Info: Redefining \degres on input line 63.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Info: Redefining \degres on input line 67.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -475,7 +476,8 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 63.
+Package hyperref Info: Link coloring ON on input line 67.
+ (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
@@ -484,106 +486,97 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
  (./chapitres/page_de_garde.tex
-<images/logo_isi_nc.jpeg, id=4, 2671.9825pt x 508.90125pt>
+<images/logo_isi_nc.jpeg, id=253, 2671.9825pt x 508.90125pt>
 File: images/logo_isi_nc.jpeg Graphic file (type jpg)
 <use images/logo_isi_nc.jpeg>
 Package pdftex.def Info: images/logo_isi_nc.jpeg  used on input line 8.
 (pdftex.def)             Requested size: 122.91632pt x 23.4043pt.
-<images/logo_FPG.png, id=5, 297.11pt x 104.39pt>
+<images/logo_efrei.png, id=254, 740.7675pt x 370.38374pt>
+File: images/logo_efrei.png Graphic file (type png)
+<use images/logo_efrei.png>
+Package pdftex.def Info: images/logo_efrei.png  used on input line 13.
+(pdftex.def)             Requested size: 102.42923pt x 51.20908pt.
+<images/logo_FPG.png, id=255, 297.11pt x 104.39pt>
 File: images/logo_FPG.png Graphic file (type png)
 <use images/logo_FPG.png>
-Package pdftex.def Info: images/logo_FPG.png  used on input line 13.
+Package pdftex.def Info: images/logo_FPG.png  used on input line 18.
 (pdftex.def)             Requested size: 102.42923pt x 35.98909pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/logo_isi_nc.jpeg> <./images/logo_FPG.png>]) (./chapitres/remerciements.tex
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/logo_isi_nc.jpeg> <./images/logo_efrei.png> <./images/logo_FPG.png>]) (./chapitres/remerciements.tex
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.23 \newpage
               [1
 
+]) (./main.toc [2
+
 ])
-No file main.toc.
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
-[2
+Package babel Info: 'french' activates 'french' shorthands.
+(babel)             Reported on input line 83.
+ [3] (./main.lof [4
 
-]
-No file main.lof.
+])
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
-[3
-
-] (./chapitres/introduction.tex
+ [5] (./chapitres/introduction.tex
 Chapitre 1.
-[4
+[6
 
-]) (./chapitres/methodologie.tex
-Package babel Info: 'french' activates 'french' shorthands.
-(babel)             Reported on input line 3.
- [5]
+]) (./chapitres/methodologie.tex [7]
 Chapitre 2.
-<images/logo_open_project.jpeg, id=48, 556.0775pt x 556.0775pt>
+<images/logo_open_project.jpeg, id=465, 556.0775pt x 556.0775pt>
 File: images/logo_open_project.jpeg Graphic file (type jpg)
 <use images/logo_open_project.jpeg>
 Package pdftex.def Info: images/logo_open_project.jpeg  used on input line 25.
 (pdftex.def)             Requested size: 42.67912pt x 42.6713pt.
-<images/logo_mattermost.png, id=49, 448.67625pt x 448.67625pt>
+<images/logo_mattermost.png, id=466, 448.67625pt x 448.67625pt>
 File: images/logo_mattermost.png Graphic file (type png)
 <use images/logo_mattermost.png>
 Package pdftex.def Info: images/logo_mattermost.png  used on input line 28.
 (pdftex.def)             Requested size: 42.67912pt x 42.6726pt.
 
-LaTeX Warning: Reference `annexe:us' on page 6 undefined on input line 33.
+LaTeX Warning: Reference `annexe:us' on page 8 undefined on input line 33.
 
-<images/logo_vs_code.png, id=50, 951.555pt x 324.21124pt>
+<images/logo_vs_code.png, id=467, 951.555pt x 324.21124pt>
 File: images/logo_vs_code.png Graphic file (type png)
 <use images/logo_vs_code.png>
 Package pdftex.def Info: images/logo_vs_code.png  used on input line 39.
 (pdftex.def)             Requested size: 34.14322pt x 11.63052pt.
-[6
+[8
 
  <./images/logo_open_project.jpeg> <./images/logo_mattermost.png>]
-<images/logo_angular.jpeg, id=61, 448.67625pt x 448.67625pt>
+<images/logo_angular.jpeg, id=474, 448.67625pt x 448.67625pt>
 File: images/logo_angular.jpeg Graphic file (type jpg)
 <use images/logo_angular.jpeg>
 Package pdftex.def Info: images/logo_angular.jpeg  used on input line 45.
 (pdftex.def)             Requested size: 34.14322pt x 34.1422pt.
-<images/logo_gizmo.png, id=62, 178.6675pt x 58.2175pt>
+<images/logo_gizmo.png, id=475, 178.6675pt x 58.2175pt>
 File: images/logo_gizmo.png Graphic file (type png)
 <use images/logo_gizmo.png>
 Package pdftex.def Info: images/logo_gizmo.png  used on input line 49.
 (pdftex.def)             Requested size: 34.14322pt x 11.1254pt.
-
-
-./chapitres/methodologie.tex:55: LaTeX Error: Unknown graphics extension: .webp.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.55 ...ngo} \imgw{logo_django_python.webp}{1.5cm}
-                                                  ,
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Reference `chap:historisation' on page 7 undefined on input line 61.
-
-<images/logo_postgres.png, id=64, 221.82875pt x 228.855pt>
+<images/logo_django_python.png, id=477, 501.875pt x 501.875pt>
+File: images/logo_django_python.png Graphic file (type png)
+<use images/logo_django_python.png>
+Package pdftex.def Info: images/logo_django_python.png  used on input line 55.
+(pdftex.def)             Requested size: 42.67912pt x 42.67795pt.
+<images/logo_postgres.png, id=479, 221.82875pt x 228.855pt>
 File: images/logo_postgres.png Graphic file (type png)
 <use images/logo_postgres.png>
 Package pdftex.def Info: images/logo_postgres.png  used on input line 66.
 (pdftex.def)             Requested size: 34.14322pt x 35.22421pt.
-<images/logo_dbeaver.jpeg, id=65, 448.67625pt x 448.67625pt>
+<images/logo_dbeaver.jpeg, id=480, 448.67625pt x 448.67625pt>
 File: images/logo_dbeaver.jpeg Graphic file (type jpg)
 <use images/logo_dbeaver.jpeg>
 Package pdftex.def Info: images/logo_dbeaver.jpeg  used on input line 69.
 (pdftex.def)             Requested size: 34.14322pt x 34.1422pt.
-<images/logo_gitlab.png, id=66, 457.71pt x 439.6425pt>
+<images/logo_gitlab.png, id=481, 457.71pt x 439.6425pt>
 File: images/logo_gitlab.png Graphic file (type png)
 <use images/logo_gitlab.png>
 Package pdftex.def Info: images/logo_gitlab.png  used on input line 76.
@@ -593,25 +586,61 @@ Overfull \hbox (3.72995pt too wide) in paragraph at lines 76--79
 []\T1/cmr/bx/n/12 GitLab [] \T1/cmr/m/n/12 ^^V ver-sion-ning du code, in-t�-gra-tion et d�-ploie-ment conti-nus (CI/CD),
  []
 
-<images/logo_linux.png, id=67, 499.8675pt x 528.97626pt>
+<images/logo_linux.png, id=482, 499.8675pt x 528.97626pt>
 File: images/logo_linux.png Graphic file (type png)
 <use images/logo_linux.png>
 Package pdftex.def Info: images/logo_linux.png  used on input line 79.
 (pdftex.def)             Requested size: 34.14322pt x 36.1281pt.
-[7 <./images/logo_vs_code.png> <./images/logo_angular.jpeg> <./images/logo_gizmo.png> <./images/logo_postgres.png> <./images/logo_dbeaver.jpeg> <./images/logo_gitlab.png>]
-<images/logo_docker.png, id=82, 740.7675pt x 415.5525pt>
+[9 <./images/logo_vs_code.png> <./images/logo_angular.jpeg> <./images/logo_gizmo.png> <./images/logo_django_python.png> <./images/logo_postgres.png> <./images/logo_dbeaver.jpeg> <./images/logo_gitlab.png>]
+<images/logo_docker.png, id=493, 740.7675pt x 415.5525pt>
 File: images/logo_docker.png Graphic file (type png)
 <use images/logo_docker.png>
 Package pdftex.def Info: images/logo_docker.png  used on input line 81.
 (pdftex.def)             Requested size: 34.14322pt x 19.14925pt.
-) (./chapitres/historisation.tex [8 <./images/logo_linux.png> <./images/logo_docker.png>]
+) (./chapitres/presentation_applicative.tex [10 <./images/logo_linux.png> <./images/logo_docker.png>]
 Chapitre 3.
-[9
+
+Overfull \hbox (17.92068pt too wide) in paragraph at lines 3--3
+|[]\T1/cmr/bx/n/24.88 Pr�sentation fonc-tion-nelle du lo-gi-ciel FPG| 
+ []
+
+[11
 
 ]
+<images/page_de_connexion.png, id=505, 1875.005pt x 1115.16624pt>
+File: images/page_de_connexion.png Graphic file (type png)
+<use images/page_de_connexion.png>
+Package pdftex.def Info: images/page_de_connexion.png  used on input line 62.
+(pdftex.def)             Requested size: 318.66948pt x 189.5247pt.
+<images/onglet_demande_de_financement.png, id=506, 1874.00125pt x 1117.17375pt>
+File: images/onglet_demande_de_financement.png Graphic file (type png)
+<use images/onglet_demande_de_financement.png>
+Package pdftex.def Info: images/onglet_demande_de_financement.png  used on input line 75.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+ [12 <./images/page_de_connexion.png>]
+<images/schema_des_flux_status.png, id=514, 705.63625pt x 331.2375pt>
+File: images/schema_des_flux_status.png Graphic file (type png)
+<use images/schema_des_flux_status.png>
+Package pdftex.def Info: images/schema_des_flux_status.png  used on input line 102.
+(pdftex.def)             Requested size: 386.96027pt x 181.64543pt.
+ [13 <./images/onglet_demande_de_financement.png>]
+<images/verrou_selon_statut.png, id=520, 751.80875pt x 271.0125pt>
+File: images/verrou_selon_statut.png Graphic file (type png)
+<use images/verrou_selon_statut.png>
+Package pdftex.def Info: images/verrou_selon_statut.png  used on input line 121.
+(pdftex.def)             Requested size: 386.96027pt x 139.49234pt.
+) (./chapitres/historisation.tex [14 <./images/schema_des_flux_status.png> <./images/verrou_selon_statut.png>]
+Chapitre 4.
+
+Overfull \hbox (15.4467pt too wide) in paragraph at lines 3--3
+|[]\T1/cmr/bx/n/24.88 Mission prin-ci-pale : l'his-to-ri-sa-tion des mo-
+ []
+
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 44.
- (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[15
+
+] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 52.
@@ -620,46 +649,258 @@ Overfull \hbox (76.08025pt too wide) in paragraph at lines 68--74
 []\T1/cmr/m/n/12 J'ai donc mis en place un sys-t�me de \T1/cmr/bx/n/12 snap-shots\T1/cmr/m/n/12 , ma-t�-ria-lis� par le mo-d�le \T1/cmtt/m/n/12 FundingRequestSnapshot\T1/cmr/m/n/12 ,
  []
 
-[10]
-Overfull \hbox (5.19756pt too wide) in paragraph at lines 97--101
+<images/onglet_formation.png, id=531, 1874.00125pt x 1117.17375pt>
+File: images/onglet_formation.png Graphic file (type png)
+<use images/onglet_formation.png>
+Package pdftex.def Info: images/onglet_formation.png  used on input line 88.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+[16]
+<images/ajout_dispositif_complementaire.png, id=545, 1874.00125pt x 1117.17375pt>
+File: images/ajout_dispositif_complementaire.png Graphic file (type png)
+<use images/ajout_dispositif_complementaire.png>
+Package pdftex.def Info: images/ajout_dispositif_complementaire.png  used on input line 118.
+(pdftex.def)             Requested size: 364.19667pt x 217.10648pt.
+ [17 <./images/onglet_formation.png>]
+<images/onglet_stagiaire.png, id=552, 1874.00125pt x 1117.17375pt>
+File: images/onglet_stagiaire.png Graphic file (type png)
+<use images/onglet_stagiaire.png>
+Package pdftex.def Info: images/onglet_stagiaire.png  used on input line 134.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+<images/Ajout_stagiaire.png, id=553, 1875.005pt x 1115.16624pt>
+File: images/Ajout_stagiaire.png Graphic file (type png)
+<use images/Ajout_stagiaire.png>
+Package pdftex.def Info: images/Ajout_stagiaire.png  used on input line 149.
+(pdftex.def)             Requested size: 341.43307pt x 203.05246pt.
+ [18 <./images/ajout_dispositif_complementaire.png> <./images/onglet_stagiaire.png>]
+<images/ajout_stagiaire_historique.png, id=561, 1875.005pt x 318.18875pt>
+File: images/ajout_stagiaire_historique.png Graphic file (type png)
+<use images/ajout_stagiaire_historique.png>
+Package pdftex.def Info: images/ajout_stagiaire_historique.png  used on input line 156.
+(pdftex.def)             Requested size: 341.43307pt x 57.93665pt.
+<images/suppression_stagiaire.png, id=562, 1875.005pt x 318.18875pt>
+File: images/suppression_stagiaire.png Graphic file (type png)
+<use images/suppression_stagiaire.png>
+Package pdftex.def Info: images/suppression_stagiaire.png  used on input line 163.
+(pdftex.def)             Requested size: 341.43307pt x 57.93665pt.
+<images/modification_stagiaire.png, id=563, 1875.005pt x 1116.17pt>
+File: images/modification_stagiaire.png Graphic file (type png)
+<use images/modification_stagiaire.png>
+Package pdftex.def Info: images/modification_stagiaire.png  used on input line 176.
+(pdftex.def)             Requested size: 341.43307pt x 203.23523pt.
+ [19 <./images/Ajout_stagiaire.png> <./images/ajout_stagiaire_historique.png> <./images/suppression_stagiaire.png>]
+<images/modification_stagiaire_historique.png, id=571, 1875.005pt x 453.695pt>
+File: images/modification_stagiaire_historique.png Graphic file (type png)
+<use images/modification_stagiaire_historique.png>
+Package pdftex.def Info: images/modification_stagiaire_historique.png  used on input line 183.
+(pdftex.def)             Requested size: 341.43307pt x 82.61pt.
+<images/modification_stagiaire_salaire_heures.png, id=572, 1875.005pt x 344.28625pt>
+File: images/modification_stagiaire_salaire_heures.png Graphic file (type png)
+<use images/modification_stagiaire_salaire_heures.png>
+Package pdftex.def Info: images/modification_stagiaire_salaire_heures.png  used on input line 196.
+(pdftex.def)             Requested size: 341.43307pt x 62.68855pt.
+<images/ajout_stagiaire_ventilation.png, id=573, 1875.005pt x 620.3175pt>
+File: images/ajout_stagiaire_ventilation.png Graphic file (type png)
+<use images/ajout_stagiaire_ventilation.png>
+Package pdftex.def Info: images/ajout_stagiaire_ventilation.png  used on input line 209.
+(pdftex.def)             Requested size: 341.43307pt x 112.94907pt.
+ [20 <./images/modification_stagiaire.png> <./images/modification_stagiaire_historique.png> <./images/modification_stagiaire_salaire_heures.png>]
+<images/supression_stagiaire_ventilation.png, id=581, 1875.005pt x 620.3175pt>
+File: images/supression_stagiaire_ventilation.png Graphic file (type png)
+<use images/supression_stagiaire_ventilation.png>
+Package pdftex.def Info: images/supression_stagiaire_ventilation.png  used on input line 216.
+(pdftex.def)             Requested size: 341.43307pt x 112.94907pt.
+<images/modification_stagiaire_salaire_ventilation.png, id=582, 1875.005pt x 620.3175pt>
+File: images/modification_stagiaire_salaire_ventilation.png Graphic file (type png)
+<use images/modification_stagiaire_salaire_ventilation.png>
+Package pdftex.def Info: images/modification_stagiaire_salaire_ventilation.png  used on input line 223.
+(pdftex.def)             Requested size: 341.43307pt x 112.94907pt.
+<images/onglet_suivie_de_formation.png, id=583, 1874.00125pt x 1117.17375pt>
+File: images/onglet_suivie_de_formation.png Graphic file (type png)
+<use images/onglet_suivie_de_formation.png>
+Package pdftex.def Info: images/onglet_suivie_de_formation.png  used on input line 232.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+ [21 <./images/ajout_stagiaire_ventilation.png> <./images/supression_stagiaire_ventilation.png> <./images/modification_stagiaire_salaire_ventilation.png>]
+<images/modification_suivie_de_formation.png, id=591, 1875.005pt x 265.99374pt>
+File: images/modification_suivie_de_formation.png Graphic file (type png)
+<use images/modification_suivie_de_formation.png>
+Package pdftex.def Info: images/modification_suivie_de_formation.png  used on input line 248.
+(pdftex.def)             Requested size: 341.43307pt x 48.43285pt.
+<images/modification_suivie_de_formation_ventilation.png, id=592, 1875.005pt x 572.1375pt>
+File: images/modification_suivie_de_formation_ventilation.png Graphic file (type png)
+<use images/modification_suivie_de_formation_ventilation.png>
+Package pdftex.def Info: images/modification_suivie_de_formation_ventilation.png  used on input line 255.
+(pdftex.def)             Requested size: 341.43307pt x 104.17632pt.
+<images/onglet_montage_financier.png, id=593, 1874.00125pt x 1117.17375pt>
+File: images/onglet_montage_financier.png Graphic file (type png)
+<use images/onglet_montage_financier.png>
+Package pdftex.def Info: images/onglet_montage_financier.png  used on input line 265.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+ [22 <./images/onglet_suivie_de_formation.png> <./images/modification_suivie_de_formation.png> <./images/modification_suivie_de_formation_ventilation.png>]
+<images/modification_montage_financer_manuel.png, id=601, 1875.005pt x 581.17125pt>
+File: images/modification_montage_financer_manuel.png Graphic file (type png)
+<use images/modification_montage_financer_manuel.png>
+Package pdftex.def Info: images/modification_montage_financer_manuel.png  used on input line 290.
+(pdftex.def)             Requested size: 341.43307pt x 105.82121pt.
+<images/modification_montage_financer_manuel_historique.png, id=602, 1875.005pt x 172.645pt>
+File: images/modification_montage_financer_manuel_historique.png Graphic file (type png)
+<use images/modification_montage_financer_manuel_historique.png>
+Package pdftex.def Info: images/modification_montage_financer_manuel_historique.png  used on input line 297.
+(pdftex.def)             Requested size: 341.43307pt x 31.43565pt.
+ [23 <./images/onglet_montage_financier.png> <./images/modification_montage_financer_manuel.png>]
+<images/modification_montage_financer_ventilation_historique.png, id=609, 1788.6825pt x 432.61626pt>
+File: images/modification_montage_financer_ventilation_historique.png Graphic file (type png)
+<use images/modification_montage_financer_ventilation_historique.png>
+Package pdftex.def Info: images/modification_montage_financer_ventilation_historique.png  used on input line 318.
+(pdftex.def)             Requested size: 364.19667pt x 88.0862pt.
+<images/onglet_tiers_beneficiaires.png, id=610, 1874.00125pt x 1117.17375pt>
+File: images/onglet_tiers_beneficiaires.png Graphic file (type png)
+<use images/onglet_tiers_beneficiaires.png>
+Package pdftex.def Info: images/onglet_tiers_beneficiaires.png  used on input line 328.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+ [24 <./images/modification_montage_financer_manuel_historique.png> <./images/modification_montage_financer_ventilation_historique.png> <./images/onglet_tiers_beneficiaires.png>]
+<images/modification_tiers_bénéficiaire.png, id=621, 1855.93375pt x 262.9825pt>
+File: images/modification_tiers_bénéficiaire.png Graphic file (type png)
+<use images/modification_tiers_bénéficiaire.png>
+Package pdftex.def Info: images/modification_tiers_bénéficiaire.png  used on input line 341.
+(pdftex.def)             Requested size: 341.43307pt x 48.37813pt.
+<images/modification_tiers_bénéficiaire_historique.png, id=622, 1797.71625pt x 138.5175pt>
+File: images/modification_tiers_bénéficiaire_historique.png Graphic file (type png)
+<use images/modification_tiers_bénéficiaire_historique.png>
+Package pdftex.def Info: images/modification_tiers_bénéficiaire_historique.png  used on input line 348.
+(pdftex.def)             Requested size: 341.43307pt x 26.30801pt.
+<images/onglet_règlements.png, id=623, 1874.00125pt x 1117.17375pt>
+File: images/onglet_règlements.png Graphic file (type png)
+<use images/onglet_règlements.png>
+Package pdftex.def Info: images/onglet_règlements.png  used on input line 357.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+ [25 <./images/modification_tiers_bénéficiaire.png> <./images/modification_tiers_bénéficiaire_historique.png> <./images/onglet_règlements.png>]
+<images/ajout_règlement.png, id=631, 1871.99374pt x 1119.18124pt>
+File: images/ajout_règlement.png Graphic file (type png)
+<use images/ajout_règlement.png>
+Package pdftex.def Info: images/ajout_règlement.png  used on input line 383.
+(pdftex.def)             Requested size: 341.43307pt x 204.12506pt.
+<images/ajout_règlement_historique.png, id=632, 1871.99374pt x 208.78pt>
+File: images/ajout_règlement_historique.png Graphic file (type png)
+<use images/ajout_règlement_historique.png>
+Package pdftex.def Info: images/ajout_règlement_historique.png  used on input line 390.
+(pdftex.def)             Requested size: 341.43307pt x 38.07892pt.
+<images/suppression_règlement.png, id=633, 1871.99374pt x 1119.18124pt>
+File: images/suppression_règlement.png Graphic file (type png)
+<use images/suppression_règlement.png>
+Package pdftex.def Info: images/suppression_règlement.png  used on input line 397.
+(pdftex.def)             Requested size: 341.43307pt x 204.12506pt.
+<images/supression_règlement_historique.png, id=634, 1871.99374pt x 113.42375pt>
+File: images/supression_règlement_historique.png Graphic file (type png)
+<use images/supression_règlement_historique.png>
+Package pdftex.def Info: images/supression_règlement_historique.png  used on input line 404.
+(pdftex.def)             Requested size: 341.43307pt x 20.6871pt.
+ [26 <./images/ajout_règlement.png> <./images/ajout_règlement_historique.png> <./images/suppression_règlement.png>]
+<images/validation_invalidation_règlement_historique.png, id=642, 1871.99374pt x 285.065pt>
+File: images/validation_invalidation_règlement_historique.png Graphic file (type png)
+<use images/validation_invalidation_règlement_historique.png>
+Package pdftex.def Info: images/validation_invalidation_règlement_historique.png  used on input line 411.
+(pdftex.def)             Requested size: 341.43307pt x 51.99239pt.
+<images/onglet_document.png, id=643, 1874.00125pt x 1117.17375pt>
+File: images/onglet_document.png Graphic file (type png)
+<use images/onglet_document.png>
+Package pdftex.def Info: images/onglet_document.png  used on input line 420.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+<images/ajout_report_history.png, id=644, 1871.99374pt x 148.555pt>
+File: images/ajout_report_history.png Graphic file (type png)
+<use images/ajout_report_history.png>
+Package pdftex.def Info: images/ajout_report_history.png  used on input line 441.
+(pdftex.def)             Requested size: 341.43307pt x 27.09462pt.
+ [27 <./images/supression_règlement_historique.png> <./images/validation_invalidation_règlement_historique.png> <./images/onglet_document.png>]
+<images/visibilite_report.png, id=654, 1871.99374pt x 1154.3125pt>
+File: images/visibilite_report.png Graphic file (type png)
+<use images/visibilite_report.png>
+Package pdftex.def Info: images/visibilite_report.png  used on input line 448.
+(pdftex.def)             Requested size: 341.43307pt x 210.53258pt.
+<images/visibilié_report_historique.png, id=655, 1871.99374pt x 148.555pt>
+File: images/visibilié_report_historique.png Graphic file (type png)
+<use images/visibilié_report_historique.png>
+Package pdftex.def Info: images/visibilié_report_historique.png  used on input line 455.
+(pdftex.def)             Requested size: 341.43307pt x 27.09462pt.
+<images/ajout_document_historique.png, id=656, 1871.99374pt x 137.51375pt>
+File: images/ajout_document_historique.png Graphic file (type png)
+<use images/ajout_document_historique.png>
+Package pdftex.def Info: images/ajout_document_historique.png  used on input line 471.
+(pdftex.def)             Requested size: 341.43307pt x 25.08083pt.
+<images/supression_document_historique.png, id=657, 1871.99374pt x 139.52126pt>
+File: images/supression_document_historique.png Graphic file (type png)
+<use images/supression_document_historique.png>
+Package pdftex.def Info: images/supression_document_historique.png  used on input line 478.
+(pdftex.def)             Requested size: 341.43307pt x 25.44698pt.
+<images/visibilité_document_historique.png, id=658, 1871.99374pt x 148.555pt>
+File: images/visibilité_document_historique.png Graphic file (type png)
+<use images/visibilité_document_historique.png>
+Package pdftex.def Info: images/visibilité_document_historique.png  used on input line 485.
+(pdftex.def)             Requested size: 341.43307pt x 27.09462pt.
+ [28 <./images/ajout_report_history.png> <./images/visibilite_report.png> <./images/visibilié_report_historique.png> <./images/ajout_document_historique.png> <./images/supression_document_historique.png>]
+<images/verouillage_deverouillage_document_historique.png, id=668, 1871.99374pt x 293.095pt>
+File: images/verouillage_deverouillage_document_historique.png Graphic file (type png)
+<use images/verouillage_deverouillage_document_historique.png>
+Package pdftex.def Info: images/verouillage_deverouillage_document_historique.png  used on input line 492.
+(pdftex.def)             Requested size: 341.43307pt x 53.45695pt.
+<images/ajout_label_document.png, id=669, 1871.99374pt x 1111.15125pt>
+File: images/ajout_label_document.png Graphic file (type png)
+<use images/ajout_label_document.png>
+Package pdftex.def Info: images/ajout_label_document.png  used on input line 499.
+(pdftex.def)             Requested size: 341.43307pt x 202.66049pt.
+<images/ajout_label_document_historique.png, id=670, 1871.99374pt x 139.52126pt>
+File: images/ajout_label_document_historique.png Graphic file (type png)
+<use images/ajout_label_document_historique.png>
+Package pdftex.def Info: images/ajout_label_document_historique.png  used on input line 506.
+(pdftex.def)             Requested size: 341.43307pt x 25.44698pt.
+<images/supression_label_historique.png, id=671, 1871.99374pt x 139.52126pt>
+File: images/supression_label_historique.png Graphic file (type png)
+<use images/supression_label_historique.png>
+Package pdftex.def Info: images/supression_label_historique.png  used on input line 513.
+(pdftex.def)             Requested size: 341.43307pt x 25.44698pt.
+<images/onglet_historique.png, id=672, 1874.00125pt x 1117.17375pt>
+File: images/onglet_historique.png Graphic file (type png)
+<use images/onglet_historique.png>
+Package pdftex.def Info: images/onglet_historique.png  used on input line 522.
+(pdftex.def)             Requested size: 409.71692pt x 244.24478pt.
+ [29 <./images/visibilité_document_historique.png> <./images/verouillage_deverouillage_document_historique.png> <./images/ajout_label_document.png> <./images/ajout_label_document_historique.png> <./images/supression_label_historique.png>]
+<images/modification_etat_historique.png, id=682, 1871.99374pt x 116.435pt>
+File: images/modification_etat_historique.png Graphic file (type png)
+<use images/modification_etat_historique.png>
+Package pdftex.def Info: images/modification_etat_historique.png  used on input line 550.
+(pdftex.def)             Requested size: 341.43307pt x 21.23633pt.
+<images/creation_demande_de_financement.png, id=683, 1871.99374pt x 116.435pt>
+File: images/creation_demande_de_financement.png Graphic file (type png)
+<use images/creation_demande_de_financement.png>
+Package pdftex.def Info: images/creation_demande_de_financement.png  used on input line 557.
+(pdftex.def)             Requested size: 341.43307pt x 21.23633pt.
+ [30 <./images/onglet_historique.png> <./images/modification_etat_historique.png> <./images/creation_demande_de_financement.png>]
+Overfull \hbox (5.19756pt too wide) in paragraph at lines 589--593
 []\T1/cmr/m/n/12 La so-lu-tion re-te-nue a consist� � cr�er un mo-d�le in-ter-m�-diaire ex-pli-cite, \T1/cmtt/m/n/12 DocumentLabel\T1/cmr/m/n/12 ,
  []
 
-[11] [12]) (./chapitres/competences.tex [13]
-Chapitre 4.
+[31] [32]) (./chapitres/competences.tex [33]
+Chapitre 5.
 
 Overfull \hbox (5.76938pt too wide) in paragraph at lines 8--10
 []\T1/cmr/m/n/12 Approfondissement de \T1/cmr/bx/n/12 Django REST Fra-me-work\T1/cmr/m/n/12 , no-tam-ment la concep-tion d'API
  []
 
-[14
+) (./chapitres/difficultes.tex [34
 
-]) (./chapitres/difficultes.tex [15]
-Chapitre 5.
+]
+Chapitre 6.
+) (./chapitres/conclusion.tex [35
 
-LaTeX Warning: Reference `chap:historisation' on page 16 undefined on input line 6.
-
-) (./chapitres/conclusion.tex [16
-
-] [17] [18
+] [36
 
 ]) (./chapitres/bibliographie.tex
 Overfull \hbox (62.41748pt too wide) in paragraph at lines 9--11
 []\T1/cmr/m/n/12 Documentation of-fi-cielle Django REST Fra-me-work ^^V [][]$\T1/cmtt/m/n/12 https : / / www . django-[]rest-[]framework .
  []
 
-[19
+[37
 
-]) (./chapitres/annexes.tex
-Annexe A.
-
-Overfull \hbox (10.48294pt too wide) in paragraph at lines 5--5
-|[]\T1/cmr/bx/n/17.28 D�coupage en User Sto-ries de la fonc-tion-na-lit� d'his-
- []
-
-) [20
-
-] (./main.aux)
+]) (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -668,31 +909,22 @@ L3 programming layer <2026-01-19>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  73BEA7B8817E3C0B358517548DA397B2;9986.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: BFF6F4A806DB13EB2E1F76AE0EAADC0D;12600.
  ) 
 Here is how much of TeX's memory you used:
- 16719 strings out of 467533
- 266406 string characters out of 5422138
- 901252 words of memory out of 5000000
- 45324 multiletter control sequences out of 15000+600000
- 643176 words of font info for 70 fonts, out of 8000000 for 9000
+ 17309 strings out of 467533
+ 287410 string characters out of 5422138
+ 904127 words of memory out of 5000000
+ 45831 multiletter control sequences out of 15000+600000
+ 644564 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,80p,278b,1326s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on main.pdf (21 pages, 661338 bytes).
+ 75i,12n,79p,648b,1326s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
+Output written on main.pdf (38 pages, 3910638 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 221 compressed objects within 3 object streams
- 90 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 856 PDF objects out of 1000 (max. 8388607)
+ 655 compressed objects within 7 object streams
+ 163 named destinations out of 1000 (max. 500000)
+ 797 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -72,7 +72,499 @@ de financement. La comparaison entre deux snapshots successifs, via une
 méthode \texttt{diff\_against}, permet d'obtenir de façon fiable
 l'ensemble des changements survenus entre deux états du dossier.
 
+\section{Logique métier et historisation par module fonctionnel}
+\label{sec:historisation-par-onglet}
+
+La demande de financement se compose de plusieurs onglets, chacun
+correspondant à un domaine fonctionnel distinct et porteur d'une logique
+d'historisation propre. Cette section détaille, pour chaque onglet, les
+informations concernées et la manière dont leurs modifications sont
+tracées et restituées à l'utilisateur.
+
+\subsection{Onglet Formation}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_formation.png}{0.9\textwidth}
+  \caption{Onglet Formation}
+  \label{fig:onglet-formation}
+\end{figure}
+
+L'onglet Formation regroupe les informations générales relatives à
+l'action de formation~: le type de prestation (action de formation,
+bilan de compétences, validation des acquis de l'expérience, permis de
+conduire), la localisation en Polynésie ou non, le caractère externe ou
+interne du prestataire, l'enregistrement au Service de l'Emploi, de la
+Formation et de l'Insertion Professionnelles (SEFI), ainsi que le nom du
+formateur. S'y ajoutent les informations propres à la formation
+elle-même~: son nom, sa modalité (présentiel ou distanciel), ses
+domaines et sous-domaines, et son lieu de déroulement (chez le
+prestataire, dans les locaux de l'entreprise, ou ailleurs).
+
+Certains champs de cet onglet présentent une particularité importante~:
+leur modification déclenche un recalcul automatique du montage financier
+du dossier, un mécanisme désigné en interne sous le terme de
+\textbf{ventilation}. Il s'agit notamment~:
+
+\begin{itemize}
+  \item de la sélection des dates et heures de formation~;
+  \item du coût pédagogique, du nom du cofinanceur et du montant du
+        cofinancement~;
+  \item des dispositifs complémentaires associés au dossier.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_dispositif_complementaire.png}{0.8\textwidth}
+  \caption{Ajout d'un dispositif complémentaire}
+  \label{fig:ajout-dispositif}
+\end{figure}
+
+Cette distinction entre champs \og{}simples\fg{} et champs déclencheurs
+de ventilation a directement structuré la conception du système
+d'historisation~: pour ces derniers, il ne suffisait pas de tracer le
+changement de valeur sur l'onglet Formation, mais également son
+répercussion sur le montage financier (voir
+Section~\ref{subsec:montage-financier}).
+
+\subsection{Onglet Stagiaires}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_stagiaire.png}{0.9\textwidth}
+  \caption{Onglet Stagiaires}
+  \label{fig:onglet-stagiaires}
+\end{figure}
+
+Les stagiaires correspondent aux salariés de la structure adhérente
+participant à la formation. Plusieurs types de modifications devaient
+être historisés sur cet onglet.
+
+\paragraph{Ajout et suppression d'un stagiaire.}
+L'ajout comme la suppression d'un stagiaire du dossier constituent des
+événements à part entière, affichés distinctement dans l'historique.
+
+\begin{figure}[H]
+  \centering
+  \imgw{Ajout_stagiaire.png}{0.75\textwidth}
+  \caption{Ajout d'un stagiaire, vue formulaire}
+  \label{fig:ajout-stagiaire}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_stagiaire_historique.png}{0.75\textwidth}
+  \caption{Ajout d'un stagiaire, restitution dans l'historique}
+  \label{fig:ajout-stagiaire-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{suppression_stagiaire.png}{0.75\textwidth}
+  \caption{Suppression d'un stagiaire}
+  \label{fig:suppression-stagiaire}
+\end{figure}
+
+\paragraph{Modification des informations d'un stagiaire.}
+La modification du type de contrat, des dates de début et de fin de
+contrat, du niveau de formation, de la fonction occupée ou de la
+catégorie socio-professionnelle (CSP) du stagiaire fait également l'objet
+d'un suivi.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_stagiaire.png}{0.75\textwidth}
+  \caption{Modification des informations d'un stagiaire}
+  \label{fig:modif-stagiaire}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_stagiaire_historique.png}{0.75\textwidth}
+  \caption{Restitution dans l'historique}
+  \label{fig:modif-stagiaire-hist}
+\end{figure}
+
+\paragraph{Modification du salaire et des heures travaillées.}
+Le salaire brut mensuel et le nombre d'heures travaillées par mois
+constituent des données particulières~: comme les champs évoqués
+précédemment sur l'onglet Formation, leur modification a un impact direct
+sur le calcul du montage financier du stagiaire concerné.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_stagiaire_salaire_heures.png}{0.75\textwidth}
+  \caption{Modification du salaire et des heures travaillées}
+  \label{fig:modif-salaire-heures}
+\end{figure}
+
+\paragraph{Répercussion sur le montage financier.}
+Pour ces trois catégories d'action (ajout, suppression, modification du
+salaire ou des heures), il était donc nécessaire d'afficher, en plus de
+l'événement lui-même, le détail de la ventilation qu'il entraîne sur le
+montage financier du dossier.
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_stagiaire_ventilation.png}{0.75\textwidth}
+  \caption{Ventilation entraînée par l'ajout d'un stagiaire}
+  \label{fig:vent-ajout-stagiaire}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{supression_stagiaire_ventilation.png}{0.75\textwidth}
+  \caption{Ventilation entraînée par la suppression d'un stagiaire}
+  \label{fig:vent-suppr-stagiaire}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_stagiaire_salaire_ventilation.png}{0.75\textwidth}
+  \caption{Ventilation entraînée par la modification du salaire}
+  \label{fig:vent-salaire}
+\end{figure}
+
+\subsection{Onglet Suivi de formation}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_suivie_de_formation.png}{0.9\textwidth}
+  \caption{Onglet Suivi de formation}
+  \label{fig:onglet-suivi}
+\end{figure}
+
+Cet onglet répertorie les heures de formation effectivement réalisées
+par chaque stagiaire. Il présente la particularité de n'être modifiable
+que lorsque le dossier se trouve au statut \og{}Préparation
+règlement\fg{}, conformément à la matrice de verrouillage présentée au
+chapitre précédent. Comme pour les champs évoqués plus haut, la
+modification des heures réalisées influence directement le montage
+financier du dossier et déclenche par conséquent une ventilation, elle
+aussi restituée dans l'historique.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_suivie_de_formation.png}{0.75\textwidth}
+  \caption{Modification des heures réalisées}
+  \label{fig:modif-suivi}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_suivie_de_formation_ventilation.png}{0.75\textwidth}
+  \caption{Ventilation entraînée par la modification des heures réalisées}
+  \label{fig:vent-suivi}
+\end{figure}
+
+\subsection{Onglet Montage financier}
+\label{subsec:montage-financier}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_montage_financier.png}{0.9\textwidth}
+  \caption{Onglet Montage financier}
+  \label{fig:onglet-montage}
+\end{figure}
+
+L'onglet Montage financier répertorie, pour chaque stagiaire et chaque
+type de frais, la source de financement retenue~: selon les dispositifs
+complémentaires activés sur le dossier, certains frais peuvent être pris
+en charge par différentes lignes budgétaires.
+
+Deux modes de modification du montage financier devaient être distingués
+dans l'historique~:
+
+\begin{itemize}
+  \item une modification \textbf{par ventilation}, c'est-à-dire une
+        modification \textit{indirecte}, déclenchée par un changement
+        apporté sur un autre onglet (dates de formation, coût
+        pédagogique, dispositifs complémentaires, stagiaires, heures
+        réalisées)~;
+  \item une modification \textbf{manuelle}, apportée directement sur
+        l'onglet du montage financier par un collaborateur.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_montage_financer_manuel.png}{0.75\textwidth}
+  \caption{Modification manuelle du montage financier}
+  \label{fig:montage-manuel}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_montage_financer_manuel_historique.png}{0.75\textwidth}
+  \caption{Restitution d'une modification manuelle dans l'historique}
+  \label{fig:montage-manuel-hist}
+\end{figure}
+
+Le volume d'informations généré par une ventilation — potentiellement
+plusieurs lignes de dispositif, pour plusieurs stagiaires, sur plusieurs
+types de frais — imposait un traitement différencié de son affichage.
+Deux exigences ont guidé la conception de cette restitution~:
+
+\begin{enumerate}
+  \item afficher un \textbf{événement source}, c'est-à-dire indiquer
+        clairement quelle modification, sur quel onglet, est à l'origine
+        de la ventilation observée~;
+  \item regrouper le détail de la ventilation \textbf{par stagiaire},
+        avec un mécanisme de dépliage à la demande, afin de ne pas
+        surcharger l'affichage par défaut.
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_montage_financer_ventilation_historique.png}{0.8\textwidth}
+  \caption{Restitution d'une ventilation dans l'historique, avec
+    événement source et regroupement par stagiaire}
+  \label{fig:montage-ventilation-hist}
+\end{figure}
+
+\subsection{Onglet Tiers bénéficiaires}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_tiers_beneficiaires.png}{0.9\textwidth}
+  \caption{Onglet Tiers bénéficiaires}
+  \label{fig:onglet-tiers}
+\end{figure}
+
+L'onglet Tiers bénéficiaires permet de déterminer, pour chaque type de
+frais, lequel de l'adhérent, de l'organisme de formation ou du FPG en est
+le bénéficiaire. L'historisation de cet onglet, plus simple que celle du
+montage financier, consiste à tracer la modification du bénéficiaire
+retenu pour chaque catégorie de frais.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_tiers_bénéficiaire.png}{0.75\textwidth}
+  \caption{Modification d'un tiers bénéficiaire}
+  \label{fig:modif-tiers}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_tiers_bénéficiaire_historique.png}{0.75\textwidth}
+  \caption{Restitution dans l'historique}
+  \label{fig:modif-tiers-hist}
+\end{figure}
+
+\subsection{Onglet Règlements}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_règlements.png}{0.9\textwidth}
+  \caption{Onglet Règlements}
+  \label{fig:onglet-reglements}
+\end{figure}
+
+L'onglet Règlements n'est modifiable que lorsque le dossier se trouve
+dans l'un des statuts \og{}Préparation règlement\fg{}, \og{}En attente
+conformité règlement\fg{} ou \og{}Réglé\fg{}. Trois types d'événements
+devaient y être historisés~:
+
+\begin{itemize}
+  \item l'\textbf{ajout} d'un règlement~;
+  \item la \textbf{suppression} d'un règlement~;
+  \item la \textbf{validation} ou l'\textbf{invalidation} d'un
+        règlement.
+\end{itemize}
+
+Une règle métier importante encadre ce dernier point~: un règlement déjà
+validé ne peut pas être supprimé directement — il doit au préalable être
+invalidé. Cette contrainte fonctionnelle a dû être prise en compte lors
+des campagnes de tests de l'historisation, afin de vérifier que chaque
+transition d'état d'un règlement est correctement et distinctement
+tracée.
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_règlement.png}{0.75\textwidth}
+  \caption{Ajout d'un règlement}
+  \label{fig:ajout-reglement}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_règlement_historique.png}{0.75\textwidth}
+  \caption{Restitution de l'ajout dans l'historique}
+  \label{fig:ajout-reglement-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{suppression_règlement.png}{0.75\textwidth}
+  \caption{Suppression d'un règlement}
+  \label{fig:suppr-reglement}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{supression_règlement_historique.png}{0.75\textwidth}
+  \caption{Restitution de la suppression dans l'historique}
+  \label{fig:suppr-reglement-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{validation_invalidation_règlement_historique.png}{0.75\textwidth}
+  \caption{Restitution de la validation/invalidation d'un règlement}
+  \label{fig:valid-reglement-hist}
+\end{figure}
+
+\subsection{Onglet Documents}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_document.png}{0.9\textwidth}
+  \caption{Onglet Documents}
+  \label{fig:onglet-documents}
+\end{figure}
+
+Contrairement aux onglets précédents, l'onglet Documents reste
+modifiable quel que soit le statut du dossier. Il distingue deux
+catégories de fichiers, dont la nature différente a directement
+conditionné la logique d'historisation retenue.
+
+\paragraph{Les rapports (\textit{Reports}).}
+Il s'agit des documents générés automatiquement par le système, en
+particulier les \textit{MAPC}, produits lorsque le dossier atteint le
+statut \og{}Préparation règlement\fg{}. La génération de ce document est
+notamment un préalable obligatoire à toute modification des règlements.
+S'agissant de documents officiels générés par le système, seuls leur
+ajout et leur visibilité sont historisés — ils ne peuvent en particulier
+faire l'objet ni d'une suppression, ni d'une labellisation.
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_report_history.png}{0.75\textwidth}
+  \caption{Ajout d'un rapport (MAPC), restitution dans l'historique}
+  \label{fig:ajout-report}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{visibilite_report.png}{0.75\textwidth}
+  \caption{Modification de la visibilité d'un rapport}
+  \label{fig:visibilite-report}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{visibilié_report_historique.png}{0.75\textwidth}
+  \caption{Restitution de la visibilité d'un rapport dans l'historique}
+  \label{fig:visibilite-report-hist}
+\end{figure}
+
+\paragraph{Les documents.}
+Il s'agit des pièces justificatives importées manuellement par
+l'utilisateur, relatives à la formation — par exemple un justificatif de
+frais d'hébergement. Pour cette catégorie, l'ensemble du cycle de vie du
+document devait être historisé~: son ajout, sa suppression, la
+modification de sa visibilité, son verrouillage ou déverrouillage, ainsi
+que l'ajout ou le retrait de labels permettant de le catégoriser (par
+exemple le label \og{}contrat de formation\fg{}).
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_document_historique.png}{0.75\textwidth}
+  \caption{Ajout d'un document, restitution dans l'historique}
+  \label{fig:ajout-document-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{supression_document_historique.png}{0.75\textwidth}
+  \caption{Suppression d'un document, restitution dans l'historique}
+  \label{fig:suppr-document-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{visibilité_document_historique.png}{0.75\textwidth}
+  \caption{Modification de la visibilité d'un document}
+  \label{fig:visibilite-document-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{verouillage_deverouillage_document_historique.png}{0.75\textwidth}
+  \caption{Verrouillage / déverrouillage d'un document}
+  \label{fig:verrou-document-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_label_document.png}{0.75\textwidth}
+  \caption{Ajout d'un label sur un document}
+  \label{fig:ajout-label}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_label_document_historique.png}{0.75\textwidth}
+  \caption{Restitution de l'ajout d'un label dans l'historique}
+  \label{fig:ajout-label-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{supression_label_historique.png}{0.75\textwidth}
+  \caption{Restitution de la suppression d'un label dans l'historique}
+  \label{fig:suppr-label-hist}
+\end{figure}
+
+\subsection{Onglet Historique}
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_historique.png}{0.9\textwidth}
+  \caption{Onglet Historique}
+  \label{fig:onglet-historique}
+\end{figure}
+
+L'onglet Historique constitue l'aboutissement fonctionnel de la
+mission~: il centralise et restitue l'ensemble des modifications
+apportées à la demande de financement, qu'elles soient issues d'une
+action manuelle ou d'une ventilation, tous onglets confondus.
+
+Chaque entrée de l'historique respecte un même format de présentation,
+garantissant une lecture homogène quel que soit le type de modification
+concernée~:
+
+\begin{quote}
+\textit{Modification -- \og{}onglet concerné\fg{}}\\
+\textit{Mise à jour de \og{}nom de l'utilisateur\fg{} le \og{}date de
+la modification\fg{}}\\
+\textit{\og{}type de modification\fg{} de \og{}ancienne valeur\fg{} vers
+\og{}nouvelle valeur\fg{}}
+\end{quote}
+
+Au-delà des modifications de champs classiques, l'onglet Historique
+restitue également deux événements particuliers~: le changement de
+statut de la demande de financement, et la création initiale du dossier.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_etat_historique.png}{0.75\textwidth}
+  \caption{Restitution d'un changement de statut dans l'historique}
+  \label{fig:modif-etat-hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{creation_demande_de_financement.png}{0.75\textwidth}
+  \caption{Restitution de la création du dossier dans l'historique}
+  \label{fig:creation-dossier}
+\end{figure}
+
+
 \section{Défis techniques rencontrés}
+
+La mise en œuvre de cette logique métier, pourtant relativement simple à
+énoncer module par module, s'est heurtée en pratique à plusieurs
+difficultés techniques structurantes, détaillées ci-après.
 
 \subsection{Modèles non rattachés au système de snapshot}
 

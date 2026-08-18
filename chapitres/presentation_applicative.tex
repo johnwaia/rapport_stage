@@ -1,0 +1,128 @@
+% !TEX root = ../main.tex
+
+\chapter{Présentation fonctionnelle du logiciel FPG}
+\label{chap:presentation}
+
+Avant de détailler la mise en œuvre technique de l'historisation, il est
+nécessaire de présenter le fonctionnement du logiciel FPG tel que
+découvert et manipulé au cours du stage. Cette présentation permet de
+comprendre le périmètre exact de la mission~: quelles interfaces sont
+concernées, quelles informations doivent être tracées, et selon quelle
+logique métier.
+
+\section{Deux interfaces distinctes}
+
+Le logiciel FPG repose sur deux interfaces distinctes, destinées à deux
+profils d'utilisateurs différents.
+
+\subsection{Interface Adhérent}
+
+L'interface \textbf{Adhérent} est accessible aux utilisateurs publics,
+membres d'une structure adhérente (une entreprise cotisante). Elle leur
+permet~:
+
+\begin{itemize}
+  \item de rédiger le brouillon d'une demande de financement~;
+  \item de joindre les pièces justificatives nécessaires~;
+  \item de soumettre la demande, ce qui entraîne la création du dossier
+        avec le statut \texttt{TRANSMIS}~;
+  \item de consulter l'état d'avancement du dossier et d'échanger via une
+        messagerie, selon les droits exposés par l'API.
+\end{itemize}
+
+\subsection{Interface Collaborateur}
+
+L'interface \textbf{Collaborateur} (dite \og{}office\fg{}) est réservée
+aux agents du FPG en charge du traitement des dossiers. Elle leur permet
+notamment~:
+
+\begin{itemize}
+  \item d'instruire le dossier~;
+  \item de modifier les informations relatives à la formation, aux
+        stagiaires ou au montage financier~;
+  \item de faire évoluer le statut du dossier~;
+  \item de gérer les règlements, les documents administratifs
+        (\textit{MAPC}), les contrôles, les notes internes et les
+        affectations aux collaborateurs.
+\end{itemize}
+
+C'est exclusivement sur cette interface Collaborateur que la
+fonctionnalité d'historisation a été implémentée, dans la mesure où
+c'est elle qui concentre l'essentiel des actions de modification
+apportées à une demande de financement.
+
+\section{Connexion et redirection}
+
+L'accès au logiciel se fait via une page de connexion unique. Selon les
+identifiants saisis, l'utilisateur est automatiquement redirigé vers
+l'interface qui lui correspond — Adhérent ou Collaborateur.
+
+\begin{figure}[H]
+  \centering
+  \imgw{page_de_connexion.png}{0.7\textwidth}
+  \caption{Page de connexion commune aux deux interfaces}
+  \label{fig:page-connexion}
+\end{figure}
+
+\section{Liste des demandes de financement}
+
+Une fois connecté à l'interface Collaborateur, l'utilisateur accède à la
+liste des demandes de financement, point d'entrée principal de son
+activité quotidienne.
+
+\begin{figure}[H]
+  \centering
+  \imgw{onglet_demande_de_financement.png}{0.9\textwidth}
+  \caption{Liste des demandes de financement, interface Collaborateur}
+  \label{fig:liste-demandes}
+\end{figure}
+
+Cette liste présente, pour chaque dossier, les informations
+principales~: le numéro de dossier, la date de réception, le type de
+financement, les dispositifs complémentaires choisis, le millésime, le
+numéro Tahiti et le numéro CPS de la structure, l'intitulé de l'action de
+formation, l'organisme de formation prestataire, les dates de début et
+de fin de formation, le collaborateur assigné au dossier, l'état interne,
+ainsi que le statut du dossier. Un bouton d'action permet enfin d'accéder
+aux différents onglets de la demande de financement, chacun d'entre eux
+pouvant faire l'objet de modifications à historiser.
+
+\section{Cycle de vie d'une demande de financement}
+
+\subsection{Flux des statuts}
+
+Une demande de financement traverse, au cours de son traitement, une
+succession de statuts~: de sa création (\texttt{TRANSMIS}) jusqu'à son
+règlement final, en passant par les étapes d'instruction, de préparation
+de règlement, etc. Le schéma ci-dessous représente l'ensemble des
+transitions possibles entre statuts.
+
+\begin{figure}[H]
+  \centering
+  \imgw{schema_des_flux_status.png}{0.85\textwidth}
+  \caption{Flux des statuts d'une demande de financement}
+  \label{fig:flux-statuts}
+\end{figure}
+
+\subsection{Verrouillage des onglets selon le statut}
+
+Le statut d'un dossier détermine quels onglets sont modifiables à un
+instant donné. Certains onglets ne se déverrouillent, par exemple, que
+lorsque le dossier atteint le statut \og{}Préparation règlement\fg{}. La
+compréhension fine de cette matrice de verrouillage s'est révélée
+essentielle pour la réalisation des tests de la fonctionnalité
+d'historisation~: elle seule permet de savoir, pour un statut donné,
+quels onglets sont effectivement testables, et donc de vérifier de
+manière exhaustive que chaque modification possible est correctement
+tracée.
+
+\begin{figure}[H]
+  \centering
+  \imgw{verrou_selon_statut.png}{0.85\textwidth}
+  \caption{Matrice de verrouillage des onglets selon le statut du dossier}
+  \label{fig:verrou-statuts}
+\end{figure}
+
+Cette matrice a ainsi constitué un outil de travail quotidien tout au
+long du développement et des campagnes de tests de la fonctionnalité
+d'historisation, détaillée au chapitre suivant.

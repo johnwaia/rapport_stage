@@ -21,12 +21,13 @@
   citecolor=black,
   urlcolor=blue,
   pdftitle={Rapport de stage},
-  pdfauthor={Prénom NOM}
+  pdfauthor={John WAIA}
 }
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{}{0pt}{}
 \usepackage{caption}
 \usepackage{float}
 \usepackage{enumitem}
@@ -48,12 +49,15 @@
 }
 
 % ===== En-tête / pied de page =====
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}  % retire le préfixe "Chapitre X."
+
 \pagestyle{fancy}
 \fancyhf{}
 \setlength{\headheight}{15pt}
-\fancyhead[L]{Rapport de stage}
-\fancyhead[R]{\leftmark}
+\fancyhead[L]{\small Rapport de stage}
+\fancyhead[R]{\small\itshape\leftmark}
 \fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
 
 % ===== Macro pour images avec placeholder si manquantes =====
 \newcommand{\imgw}[2]{%
@@ -84,16 +88,11 @@
 % =====================================================================
 \input{chapitres/introduction}
 \input{chapitres/methodologie}
+\input{chapitres/presentation_applicative}
 \input{chapitres/historisation}
 \input{chapitres/competences}
 \input{chapitres/difficultes}
 \input{chapitres/conclusion}
 \input{chapitres/bibliographie}
-
-% =====================================================================
-% ANNEXES
-% =====================================================================
-\appendix
-\input{chapitres/annexes}
 
 \end{document}
