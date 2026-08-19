@@ -30,23 +30,84 @@ interne quotidienne, quant à elle, s'effectue via \textbf{Mattermost}
 Les fonctionnalités sont décomposées en \textit{User Stories}, détaillant
 les besoins fonctionnels du point de vue de l'utilisateur final. Ce
 découpage a par exemple été appliqué à la fonctionnalité d'historisation,
-cœur de ma mission (voir découpage détaillé en Annexe~\ref{annexe:us}).
+cœur de ma mission.
+
+\subsection{Organisation Git dédiée à la fonctionnalité d'historisation}
+\label{sec:git-workflow-historisation}
+
+Compte tenu de l'ampleur de la fonctionnalité d'historisation, qui
+touche successivement plusieurs entités et plusieurs onglets du logiciel,
+une organisation Git spécifique a été mise en place afin de ne pas
+perturber les autres développements en cours sur le projet.
+
+Une branche dédiée, nommée \texttt{history}, a été créée pour centraliser
+l'ensemble des développements liés à cette fonctionnalité. Un
+environnement de recette en ligne a également été mis à disposition pour
+cette branche, accessible à l'adresse suivante~:
+
+\begin{center}
+  \url{https://gizmo-frontend.fpg-history.dev.isi.nc/collaborateur/demandes-de-financement}
+\end{center}
+
+Pour chaque onglet ou entité à historiser, une branche fille dédiée était
+créée à partir de la branche \texttt{history}, suivant la convention de
+nommage \texttt{feat/nom\_de\_l'onglet\_history} — par exemple,
+\texttt{feat/montage\_financier\_history} pour l'historisation de
+l'onglet Montage financier.
+
+\subsection{Méthode de travail personnelle par User Story}
+
+Chaque User Story correspondant à l'historisation d'un onglet a été
+traitée selon une méthode de travail que j'ai progressivement stabilisée
+au fil du stage~:
+
+\begin{enumerate}
+  \item établir la liste des problèmes rencontrés et des écarts entre
+        l'implémentation en cours et les critères d'acceptation de la
+        User Story~;
+  \item corriger ces problèmes un par un jusqu'à ce que l'ensemble des
+        critères soit satisfait~;
+  \item une fois l'implémentation jugée complète, retester
+        \textbf{l'intégralité} du parcours fonctionnel concerné, de bout
+        en bout~;
+  \item exécuter la commande \texttt{pre-commit run --all-files} afin de
+        vérifier la conformité de la syntaxe et du formatage du code
+        avant tout commit~;
+  \item commiter et pousser les changements sur la branche dédiée créée
+        en amont~;
+  \item ouvrir une \textit{merge request} de cette branche vers la
+        branche \texttt{history}~;
+  \item soumettre cette \textit{merge request} à la vérification de mon
+        tuteur~;
+  \item une fois validée, fusionner les changements sur la branche
+        \texttt{history} et sur l'environnement de recette associé~;
+  \item retester la fonctionnalité directement sur cet environnement de
+        recette~;
+  \item si l'ensemble des tests est concluant, passer à la User Story
+        suivante — chaque User Story correspondant à l'historisation d'un
+        onglet distinct.
+\end{enumerate}
+
+Cette méthode, bien que rigoureuse et parfois répétitive, a permis de
+limiter les régressions entre les différentes User Stories traitées
+successivement, chacune venant s'appuyer sur un état stable et validé de
+la branche \texttt{history}.
 
 \section{Stack technique}
 
 \subsection{Développement}
 \begin{itemize}
-  \item \textbf{VS Code} \imgw{logo_vs_code.png}{1.2cm} — IDE principal
+  \item \textbf{VS Code} \imgw{logo_vs_code.png}{1.2cm}  -  IDE principal
         utilisé pour l'ensemble des développements, frontend comme backend.
 \end{itemize}
 
 \subsection{Frontend}
 \begin{itemize}
-  \item \textbf{Angular} \imgw{logo_angular.jpeg}{1.2cm} — framework
+  \item \textbf{Angular} \imgw{logo_angular.jpeg}{1.2cm}  -  framework
         principal du frontend, associé à \textbf{PrimeNG} comme
         librairie de composants UI, offrant des composants riches
         (tableaux, formulaires, timeline, etc.) directement exploitables.
-  \item \textbf{Gizmo} \imgw{logo_gizmo.png}{1.2cm} — application
+  \item \textbf{Gizmo} \imgw{logo_gizmo.png}{1.2cm}  -  application
         constituant l'interface destinée aux structures adhérentes.
 \end{itemize}
 
@@ -55,7 +116,7 @@ cœur de ma mission (voir découpage détaillé en Annexe~\ref{annexe:us}).
   \item \textbf{Python / Django} \imgw{logo_django_python.png}{1.5cm},
         associé à \textbf{Django REST Framework} pour l'exposition d'une
         API REST consommée par le frontend Angular.
-  \item \textbf{django-simple-history} — bibliothèque permettant
+  \item \textbf{django-simple-history}  -  bibliothèque permettant
         l'historisation automatique des modèles Django, point central
         de la mission qui m'a été confiée et détaillée au
         Chapitre~\ref{chap:historisation}.
@@ -63,24 +124,40 @@ cœur de ma mission (voir découpage détaillé en Annexe~\ref{annexe:us}).
 
 \subsection{Base de données}
 \begin{itemize}
-  \item \textbf{PostgreSQL} \imgw{logo_postgres.png}{1.2cm} — système de
+  \item \textbf{PostgreSQL} \imgw{logo_postgres.png}{1.2cm}  -  système de
         gestion de base de données relationnelle utilisé pour l'ensemble
         du projet.
-  \item \textbf{DBeaver} \imgw{logo_dbeaver.jpeg}{1.2cm} — client de base
+  \item \textbf{DBeaver} \imgw{logo_dbeaver.jpeg}{1.2cm}  -  client de base
         de données utilisé pour l'inspection et le débogage direct des
         tables, notamment des tables d'historique.
 \end{itemize}
 
 \subsection{DevOps et infrastructure}
 \begin{itemize}
-  \item \textbf{GitLab} \imgw{logo_gitlab.png}{1.2cm} — versionning du
+  \item \textbf{GitLab} \imgw{logo_gitlab.png}{1.2cm}  -  versionning du
         code, intégration et déploiement continus (CI/CD), gestion des
         \textit{merge requests} et revues de code.
-  \item \textbf{Linux} \imgw{logo_linux.png}{1.2cm} — système
+  \item \textbf{Linux} \imgw{logo_linux.png}{1.2cm}  -  système
         d'exploitation utilisé comme environnement de développement.
-  \item \textbf{Docker} \imgw{logo_docker.png}{1.2cm} — conteneurisation
+  \item \textbf{Docker} \imgw{logo_docker.png}{1.2cm}  -  conteneurisation
         des différents services du projet : base de données, stockage de
         fichiers (MinIO), backend Django.
+\end{itemize}
+
+\subsection{Outils découverts pendant le stage}
+
+Au-delà des outils déjà maîtrisés en amont du stage, ce dernier a été
+l'occasion de découvrir de nouveaux outils, venus enrichir mon confort de
+travail au quotidien.
+
+\begin{itemize}
+  \item \textbf{LazyGit} \imgw{logo_lazy_git.jpeg}{1.2cm}  -  interface en
+        ligne de commande offrant une vision claire et interactive de
+        l'état d'un dépôt Git (branches, historique des commits,
+        différences entre fichiers). Cet outil a nettement facilité la
+        gestion quotidienne des nombreuses branches créées dans le cadre
+        du workflow Git dédié à l'historisation, détaillé en
+        Section~\ref{sec:git-workflow-historisation}.
 \end{itemize}
 
 \section{Architecture générale du projet}

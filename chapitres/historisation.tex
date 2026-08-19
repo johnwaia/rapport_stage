@@ -20,11 +20,11 @@ de répondre à trois questions pour chaque modification apportée :
 fonctionnalité répond à des enjeux de :
 
 \begin{itemize}
-  \item \textbf{traçabilité} — savoir précisément ce qui a été modifié
+  \item \textbf{traçabilité}  -  savoir précisément ce qui a été modifié
         et par qui à chaque étape du traitement d'un dossier ;
-  \item \textbf{audit} — permettre un contrôle a posteriori du
+  \item \textbf{audit}  -  permettre un contrôle a posteriori du
         traitement des demandes de financement ;
-  \item \textbf{résolution de litiges} — disposer de preuves fiables en
+  \item \textbf{résolution de litiges}  -  disposer de preuves fiables en
         cas de contestation d'une décision ou d'une donnée par une
         structure adhérente.
 \end{itemize}
@@ -33,7 +33,7 @@ fonctionnalité répond à des enjeux de :
 
 \subsection{django-simple-history}
 
-Le choix s'est porté sur la bibliothèque \texttt{django-simple-history},
+la bibliothèque utilisée est \texttt{django-simple-history} déjà implémenté dans le projet,
 qui génère automatiquement une table \texttt{\_history} pour chaque
 modèle historisé. Chaque opération \texttt{INSERT}, \texttt{UPDATE} ou
 \texttt{DELETE} effectuée sur un modèle historisé donne lieu à
@@ -41,20 +41,53 @@ l'enregistrement d'une nouvelle ligne dans cette table, capturant
 l'intégralité de l'état de l'objet à cet instant, ainsi que l'utilisateur
 responsable de la modification et l'horodatage associé.
 
+\begin{figure}[H]
+  \centering
+  \imgw{backlog_historique.png}{0.9\textwidth}
+  \caption{Liste des User Stories relatives à l'historisation dans le
+    backlog OpenProject}
+  \label{fig:backlog-historique}
+\end{figure}
+
+Techniquement, historiser un modèle Django avec cette bibliothèque
+consiste à ajouter un champ \texttt{history} au modèle concerné, puis à
+générer et appliquer la migration correspondante, ce qui a pour effet de
+créer la table dédiée en base de données.
+
+\begin{lstlisting}[language=Python, caption={Historisation d'un modèle avec \texttt{django-simple-history}}]
+from simple_history.models import HistoricalRecords
+
+class MonModele(models.Model):
+    ...
+    history = HistoricalRecords(table_name="core_monmodele_history")
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \imgw{creation_table_history.png}{0.9\textwidth}
+  \caption{Table d'historique générée en base de données par
+    \texttt{django-simple-history}}
+  \label{fig:creation-table-history}
+\end{figure}
+
 \subsection{Le \texttt{HistoryService}}
 
 Afin d'éviter la duplication de logique entre les différentes entités
-historisées, j'ai construit un service dédié, le \texttt{HistoryService},
-centralisant la récupération et la mise en forme de l'historique pour
+historisées, il y avais un service dédié, le \texttt{HistoryService},
+centralisant la récupération et la mise en forme de pour les différents historiques pour
 chaque type d'entité. Ce service constitue le point d'entrée unique
 utilisé par les différents endpoints d'API exposant de l'historique.
 
 \begin{lstlisting}[language=Python, caption={Extrait simplifié du \texttt{HistoryService}}]
 class HistoryService:
-    def get_history(self, entity, entity_id):
-        history_records = self._fetch_history(entity, entity_id)
-        resolved = self._resolve_references(history_records)
-        return self._format_for_frontend(resolved)
+  def get_history(self, funding_request_id: str)  
+    snapshots = FundingRequestSnapshot.objects.filter(funding_request_id=funding_request_id).order_by("-created_at")
+
+    results = []
+
+    for i in range(len(snapshots) - 1):
+        newer = snapshots[i]
+        older = snapshots[i + 1]
 \end{lstlisting}
 
 \subsection{Système de snapshots}
@@ -65,14 +98,40 @@ Comparer indépendamment l'historique de chacune de ces entités aurait
 rendu difficile la reconstitution d'un état cohérent du dossier à un
 instant donné.
 
-J'ai donc mis en place un système de \textbf{snapshots}, matérialisé par
+J'ai donc utilisé le système de \textbf{snapshots}, matérialisé par
 le modèle \texttt{FundingRequestSnapshot}, capturant à chaque sauvegarde
 un état complet et cohérent de l'ensemble des entités liées à une demande
 de financement. La comparaison entre deux snapshots successifs, via une
 méthode \texttt{diff\_against}, permet d'obtenir de façon fiable
 l'ensemble des changements survenus entre deux états du dossier.
 
-\section{Logique métier et historisation par module fonctionnel}
+\section{Trois historiques distincts à mettre en place}
+\label{sec:trois-historiques}
+
+Si la mission est fréquemment désignée au singulier — \og{}l'historisation
+des modifications\fg{} —, elle recouvrait en réalité \textbf{trois
+historiques distincts}, portant sur trois entités différentes du
+logiciel, chacun avec ses propres particularités techniques et
+fonctionnelles~:
+
+\begin{enumerate}
+  \item l'\textbf{historique des modifications d'une demande de
+        financement}, détaillé en Section~\ref{sec:historisation-par-onglet}~;
+  \item l'\textbf{historique des modifications des informations
+        concernant les adhérents} (les structures), détaillé en
+        Section~\ref{sec:historisation-adherents}~;
+  \item l'\textbf{historique des modifications des comptes
+        utilisateurs}, détaillé en Section~\ref{sec:historisation-comptes}.
+\end{enumerate}
+
+Ces trois historiques partagent une architecture commune —
+\texttt{HistoryService}, résolution des données de référence, composant
+frontend \texttt{tab-changes} — mais présentent chacun des particularités
+propres, notamment quant à leur intégration dans l'interface (existence
+ou non d'un onglet dédié) et à la structure des modèles de données
+sous-jacents.
+
+\section{Historique des modifications d'une demande de financement}
 \label{sec:historisation-par-onglet}
 
 La demande de financement se compose de plusieurs onglets, chacun
@@ -299,9 +358,9 @@ dans l'historique~:
   \label{fig:montage-manuel-hist}
 \end{figure}
 
-Le volume d'informations généré par une ventilation — potentiellement
+Le volume d'informations généré par une ventilation  -  potentiellement
 plusieurs lignes de dispositif, pour plusieurs stagiaires, sur plusieurs
-types de frais — imposait un traitement différencié de son affichage.
+types de frais  -  imposait un traitement différencié de son affichage.
 Deux exigences ont guidé la conception de cette restitution~:
 
 \begin{enumerate}
@@ -372,7 +431,7 @@ devaient y être historisés~:
 \end{itemize}
 
 Une règle métier importante encadre ce dernier point~: un règlement déjà
-validé ne peut pas être supprimé directement — il doit au préalable être
+validé ne peut pas être supprimé directement  -  il doit au préalable être
 invalidé. Cette contrainte fonctionnelle a dû être prise en compte lors
 des campagnes de tests de l'historisation, afin de vérifier que chaque
 transition d'état d'un règlement est correctement et distinctement
@@ -433,7 +492,7 @@ particulier les \textit{MAPC}, produits lorsque le dossier atteint le
 statut \og{}Préparation règlement\fg{}. La génération de ce document est
 notamment un préalable obligatoire à toute modification des règlements.
 S'agissant de documents officiels générés par le système, seuls leur
-ajout et leur visibilité sont historisés — ils ne peuvent en particulier
+ajout et leur visibilité sont historisés  -  ils ne peuvent en particulier
 faire l'objet ni d'une suppression, ni d'une labellisation.
 
 \begin{figure}[H]
@@ -459,7 +518,7 @@ faire l'objet ni d'une suppression, ni d'une labellisation.
 
 \paragraph{Les documents.}
 Il s'agit des pièces justificatives importées manuellement par
-l'utilisateur, relatives à la formation — par exemple un justificatif de
+l'utilisateur, relatives à la formation  -  par exemple un justificatif de
 frais d'hébergement. Pour cette catégorie, l'ensemble du cycle de vie du
 document devait être historisé~: son ajout, sa suppression, la
 modification de sa visibilité, son verrouillage ou déverrouillage, ainsi
@@ -560,6 +619,296 @@ statut de la demande de financement, et la création initiale du dossier.
 \end{figure}
 
 
+\section{Historique des modifications concernant les adhérents}
+\label{sec:historisation-adherents}
+
+\subsection{Liste des adhérents}
+
+Le second historique à mettre en place concerne les \textbf{adhérents},
+c'est-à-dire les structures (entreprises) cotisantes au FPG. Il est
+accessible depuis l'onglet \og{}Consulter les adhérents\fg{}, qui
+répertorie l'ensemble des structures adhérentes.
+
+\begin{figure}[H]
+  \centering
+  \imgw{liste_des_adhérents.png}{0.9\textwidth}
+  \caption{Liste des adhérents}
+  \label{fig:liste-adherents}
+\end{figure}
+
+\subsection{Fiche adhérent}
+
+En cliquant sur le bouton \og{}Action\fg{} associé à un adhérent, on
+accède à sa fiche détaillée, structurée en trois onglets~: \textit{Fiche
+adhérent}, \textit{Employés} et \textit{Historiques}.
+
+\begin{figure}[H]
+  \centering
+  \imgw{fiche_adhérent.png}{0.9\textwidth}
+  \caption{Fiche adhérent, avec ses trois onglets}
+  \label{fig:fiche-adherent}
+\end{figure}
+
+Comme pour l'onglet Formation d'une demande de financement, c'est dans
+l'onglet Fiche adhérent que se trouvent les informations générales de la
+structure~: sa raison sociale, son numéro CPS (Caisse de Prévoyance
+Sociale) et son numéro Tahiti (immatriculation économique). Une case à
+cocher permet également d'indiquer si la structure est elle-même un
+organisme de formation, ce qui a pour effet de faire apparaître un onglet
+supplémentaire.
+
+\subsubsection{Onglet Organisme de formation}
+
+Lorsque la case \og{}Organisme de formation\fg{} est cochée, un nouvel
+onglet apparaît, permettant de renseigner les informations propres à cet
+organisme~: son nom, la liste de ses responsables, sa localisation, sa
+catégorie, son numéro de récépissé SEFI, ainsi que ses dates de
+déclaration d'existence, de caducité et de réactivation.
+
+\begin{figure}[H]
+  \centering
+  \imgw{Identification_de _organisme_formation.png}{0.85\textwidth}
+  \caption{Identification de l'organisme de formation}
+  \label{fig:identification-of}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{Identification_de _organisme_formation_historique.png}{0.85\textwidth}
+  \caption{Restitution dans l'historique}
+  \label{fig:identification-of-hist}
+\end{figure}
+
+Le cas où la structure \textbf{n'est pas} (ou n'est plus) organisme de
+formation devait également être correctement restitué dans l'historique.
+
+\begin{figure}[H]
+  \centering
+  \imgw{pas_organisme_de_formation.png}{0.85\textwidth}
+  \caption{Restitution dans l'historique lorsque la structure n'est pas
+    organisme de formation}
+  \label{fig:pas-of}
+\end{figure}
+
+\subsubsection{Identification de l'adhérent}
+
+Cette partie regroupe le nom commercial de la structure, son secteur
+d'activité, sa forme juridique, son code NAF (Nomenclature d'Activités
+Française), sa branche, ainsi que son nombre de salariés.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_Identification_de_adhérent_historique.png}{0.85\textwidth}
+  \caption{Restitution d'une modification de l'identification de
+    l'adhérent}
+  \label{fig:modif-identification-adherent}
+\end{figure}
+
+\subsubsection{Coordonnées de l'adhérent}
+
+Cette partie regroupe le siège physique de l'entreprise, son adresse
+postale, ainsi que ses informations de contact.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_Coordonnées_de_adhérent_historique.png}{0.85\textwidth}
+  \caption{Restitution d'une modification des coordonnées de l'adhérent}
+  \label{fig:modif-coordonnees-adherent}
+\end{figure}
+
+\subsubsection{Informations bancaires}
+
+Cette partie regroupe le RIB de la structure, saisi sous forme de texte,
+ainsi que le document justificatif de RIB importé. Ces deux informations,
+bien que liées, ont fait l'objet d'un suivi distinct dans l'historique.
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_rib_ecrit_historique.png}{0.85\textwidth}
+  \caption{Restitution d'une modification du RIB saisi}
+  \label{fig:modif-rib-ecrit}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_import_RIB_historique.png}{0.85\textwidth}
+  \caption{Restitution d'un import de justificatif de RIB}
+  \label{fig:modif-import-rib}
+\end{figure}
+
+\subsection{Onglet Employés}
+
+L'onglet Employés répertorie les salariés de la structure susceptibles
+de participer à une formation. Deux types de modifications devaient y
+être historisés.
+
+\paragraph{Ajout d'un salarié.} L'ajout d'un salarié nécessite la saisie
+d'un ensemble d'informations~: son numéro DN (numéro d'identification
+personnel de l'assuré auprès de la CPS), sa civilité, son prénom, son
+nom d'usage, son année de naissance, son pays de naissance, son type de
+contrat, ses dates de début et de fin de contrat, sa fonction, sa
+catégorie socio-professionnelle, ainsi que ses numéros de téléphone et
+son adresse email.
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_salarié.png}{0.85\textwidth}
+  \caption{Ajout d'un salarié}
+  \label{fig:ajout-salarie}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{ajout_salarié_historique.png}{0.85\textwidth}
+  \caption{Restitution de la modification dans l'historique}
+  \label{fig:ajout-salarie-hist}
+\end{figure}
+
+\paragraph{Modification d'un salarié.}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_salarié.png}{0.85\textwidth}
+  \caption{Modification d'un salarié}
+  \label{fig:modif-salarie}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{modification_salarié_historique.png}{0.85\textwidth}
+  \caption{Restitution de la modification dans l'historique}
+  \label{fig:modif-salarie-hist}
+\end{figure}
+
+\paragraph{Une complication~: deux modèles pour un seul salarié.}
+L'historisation des informations d'un salarié s'est heurtée à une
+particularité du modèle de données existant~: les informations d'un
+salarié sont réparties entre \textbf{deux modèles Django distincts},
+\texttt{Person} et \texttt{Employee}.
+
+Le modèle \texttt{Person} porte la civilité, le prénom, le nom d'usage,
+l'année de naissance, la fonction, la catégorie socio-professionnelle,
+les numéros de téléphone et l'email. Le modèle \texttt{Employee}, quant à
+lui, porte le type de contrat, les dates de début et de fin de contrat,
+la fonction, la catégorie socio-professionnelle, ainsi que la date de
+désactivation du salarié.
+
+Or, seul le modèle \texttt{Person} était historisé au démarrage de cette
+partie de la mission~: seules ses informations pouvaient donc, dans un
+premier temps, être restituées dans l'historique. Pour couvrir également
+les informations propres au contrat (portées par \texttt{Employee}), il a
+donc fallu historiser ce second modèle, selon la même démarche que celle
+présentée précédemment~:
+
+\begin{lstlisting}[language=Python, caption={Historisation du modèle \texttt{Employee}}]
+from simple_history.models import HistoricalRecords
+
+class Employee(models.Model):
+    ...
+    history = HistoricalRecords(table_name="core_employee_history")
+\end{lstlisting}
+
+suivie de la génération et de l'application de la migration
+correspondante, créant la table \texttt{core\_employee\_history} en base
+de données.
+
+\subsection{Onglet Historique}
+
+Comme pour les demandes de financement, un onglet Historique restitue
+l'ensemble des modifications apportées à la fiche adhérente, tous
+onglets confondus (organisme de formation, identification, coordonnées,
+informations bancaires, employés). Sa mise en œuvre s'appuie, au sein de
+la classe \texttt{HistoryService}, sur une méthode dédiée~:
+\texttt{get\_structure\_history(self, cps\_number: str)}, suivant la même
+logique de comparaison chronologique des enregistrements d'historique
+que celle détaillée pour les demandes de financement.
+
+\section{Historique des modifications des comptes utilisateurs}
+\label{sec:historisation-comptes}
+
+Le troisième et dernier historique concerne les \textbf{comptes
+utilisateurs} (les collaborateurs du FPG, désignés techniquement sous le
+terme \textit{managers}). Contrairement aux deux historiques précédents,
+\textbf{aucun onglet Historique n'existait au préalable} sur cette partie
+de l'interface~: il a donc fallu construire l'intégralité du dispositif,
+du backend jusqu'au frontend, sans base existante sur laquelle s'appuyer.
+
+\subsection{Démarche de mise en œuvre}
+
+La construction de cet historique \og{}from scratch\fg{} a suivi les
+étapes suivantes~:
+
+\begin{enumerate}
+  \item \textbf{Identifier le modèle porteur des données à historiser.}
+        L'ensemble des méthodes du composant frontend
+        \texttt{view-account.component.ts}, responsable de la gestion
+        des comptes utilisateurs, s'appuient sur le modèle
+        \texttt{AccountManager}~; c'est donc ce modèle (et le modèle
+        \texttt{Manager} associé côté backend) qu'il convenait
+        d'historiser.
+  \item \textbf{Exposer une méthode de récupération de l'historique côté
+        frontend}, en suivant la même logique que celle déjà mise en
+        place pour les structures~:
+\begin{lstlisting}[caption={Ajout dans \texttt{manager.service.ts}}]
+public getManagerHistory(managerId: number): Observable<any[]> {
+  return this.http.get<any[]>(
+    `${this.apiPath}/v1/accounts/managers/${managerId}/history`
+  )
+}
+\end{lstlisting}
+  \item \textbf{Déclarer la route côté backend}, dans le fichier
+        \texttt{urls.py}~:
+\begin{lstlisting}[language=Python, caption={Ajout de la route dans \texttt{urls.py}}]
+path(
+    "accounts/<int:manager_id>/history",
+    ManagerHistoryView.as_view(),
+    name=OfficeApi.ACCOUNTS_MANAGERS_HISTORY,
+),
+\end{lstlisting}
+  \item \textbf{Implémenter la méthode de récupération de l'historique}
+        au sein du \texttt{HistoryService}, chargée d'interroger les
+        tables d'historique concernées~:
+        \texttt{get\_manager\_history(self, manager\_id: int)}.
+  \item \textbf{Créer les composants frontend d'affichage.} Un nouveau
+        dossier \texttt{view-account/tab-changes} a été créé,
+        accompagné de ses deux composants \texttt{tab-changes.\allowbreak
+        component.ts} et \texttt{tab-changes.component.html}, chargés de
+        restituer l'historique dans l'interface, en réutilisant la même
+        approche que le composant déjà développé pour les structures.
+\end{enumerate}
+
+\subsection{Résultat}
+
+La première page présente la liste des comptes utilisateurs.
+
+\begin{figure}[H]
+  \centering
+  \imgw{gestion_des_comptes_utilisateurs.png}{0.9\textwidth}
+  \caption{Gestion des comptes utilisateurs}
+  \label{fig:gestion-comptes}
+\end{figure}
+
+En cliquant sur l'icône de modification dans la colonne \og{}Action\fg{},
+on accède à la fiche d'un compte utilisateur, modifiable au même titre
+que les autres entités du système.
+
+\begin{figure}[H]
+  \centering
+  \imgw{compte_adhérent_avant.png}{0.85\textwidth}
+  \caption{Fiche d'un compte utilisateur, avant la mise en place de
+    l'historique}
+  \label{fig:compte-avant}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \imgw{compte_adhérent_après.png}{0.85\textwidth}
+  \caption{Fiche d'un compte utilisateur, après la mise en place de
+    l'historique}
+  \label{fig:compte-apres}
+\end{figure}
+
+
 \section{Défis techniques rencontrés}
 
 La mise en œuvre de cette logique métier, pourtant relativement simple à
@@ -568,7 +917,7 @@ difficultés techniques structurantes, détaillées ci-après.
 
 \subsection{Modèles non rattachés au système de snapshot}
 
-Certains modèles — documents, rapports, comptes bancaires — ne sont pas
+Certains modèles  -  documents, rapports, comptes bancaires  -  ne sont pas
 directement rattachés au système de snapshot décrit précédemment. Pour
 ces entités, il a fallu développer une logique de comparaison
 indépendante, s'appuyant directement sur les tables d'historique
@@ -576,6 +925,37 @@ générées par \texttt{simple\_history}. Cette logique parcourt
 chronologiquement chaque enregistrement d'historique afin de détecter les
 transitions d'état pertinentes : création, suppression, ou changement de
 visibilité d'un document.
+
+\paragraph{Test de l'historisation en l'absence d'interface~: le cas des
+rapports.} Les rapports (\textit{MAPC}) sont normalement générés
+automatiquement par le système via un appel à un serveur
+\textbf{JasperReports} externe. Ce service n'étant pas disponible dans
+l'environnement de développement local, il n'était pas possible de
+déclencher un ajout ou une suppression de rapport directement depuis
+l'interface pour tester l'historisation correspondante. J'ai donc simulé
+ces opérations directement via le \textbf{shell Django interactif}, en
+créant manuellement les objets concernés~:
+
+\begin{lstlisting}[language=Python, caption={Simulation de la création d'un rapport via le shell Django}]
+python manage.py shell
+>>> from core.models.funding_request_report import Report
+>>> from core.models.funding_request import FundingRequest
+>>>
+>>> fr_id = "3607148f-014f-40e9-b92e-9ac572f18358"
+>>> fr = FundingRequest.objects.get(id=fr_id)
+>>>
+>>> report = Report()
+>>> report.name = "Test MAPC 4 historisation"
+>>> report.funding_request = fr
+>>> report.report_type = "ACCORD_PRISE_EN_CHARGE_OF"
+>>> report.url = "http://localhost:9000/public/test-report.pdf"
+>>> report.save()
+>>> print(report.history.all())
+\end{lstlisting}
+
+Cette approche a permis de valider indépendamment la logique
+d'historisation des rapports, sans dépendre de la disponibilité du
+service JasperReports.
 
 \subsection{Relations Many-to-Many}
 
@@ -638,13 +1018,6 @@ Côté frontend, j'ai conçu un composant Angular réutilisable,
 \texttt{tab-changes}, chargé d'afficher l'historique des modifications
 sous forme de timeline chronologique, à l'aide du composant PrimeNG
 \texttt{p-timeline}.
-
-\begin{figure}[H]
-  \centering
-  \imgw{screenshot_historique.png}{0.8\textwidth}
-  \caption{Aperçu du composant d'historique final}
-  \label{fig:historique}
-\end{figure}
 
 \subsection{Regroupement thématique et labels}
 
