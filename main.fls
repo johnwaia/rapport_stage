@@ -215,9 +215,9 @@ INPUT ./main.toc
 INPUT main.toc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1200.tfm
-OUTPUT main.toc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecti1095.tfm
+OUTPUT main.toc
 INPUT ./main.lof
 INPUT ./main.lof
 INPUT main.lof
@@ -279,6 +279,10 @@ INPUT ./images/logo_docker.png
 INPUT ./images/logo_docker.png
 INPUT ./images/logo_docker.png
 INPUT ./images/logo_docker.png
+INPUT ./images/logo_lazy_git.jpeg
+INPUT ./images/logo_lazy_git.jpeg
+INPUT ./images/logo_lazy_git.jpeg
+INPUT ./images/logo_lazy_git.jpeg
 INPUT ./chapitres/presentation_applicative.tex
 INPUT ./chapitres/presentation_applicative.tex
 INPUT ./chapitres/presentation_applicative.tex
@@ -305,12 +309,20 @@ INPUT ./chapitres/historisation.tex
 INPUT ./chapitres/historisation.tex
 INPUT ./chapitres/historisation.tex
 INPUT chapitres/historisation.tex
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1440.tfm
+INPUT ./images/backlog_historique.png
+INPUT ./images/backlog_historique.png
+INPUT ./images/backlog_historique.png
+INPUT ./images/backlog_historique.png
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1095.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm0600.tfm
+INPUT ./images/creation_table_history.png
+INPUT ./images/creation_table_history.png
+INPUT ./images/creation_table_history.png
+INPUT ./images/creation_table_history.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1440.tfm
 INPUT ./images/onglet_formation.png
 INPUT ./images/onglet_formation.png
 INPUT ./images/onglet_formation.png
@@ -480,6 +492,70 @@ INPUT ./images/creation_demande_de_financement.png
 INPUT ./images/creation_demande_de_financement.png
 INPUT ./images/creation_demande_de_financement.png
 INPUT ./images/creation_demande_de_financement.png
+INPUT ./images/liste_des_adhérents.png
+INPUT ./images/liste_des_adhérents.png
+INPUT ./images/liste_des_adhérents.png
+INPUT ./images/liste_des_adhérents.png
+INPUT ./images/fiche_adhérent.png
+INPUT ./images/fiche_adhérent.png
+INPUT ./images/fiche_adhérent.png
+INPUT ./images/fiche_adhérent.png
+INPUT ./images/Identification_de _organisme_formation.png
+INPUT ./images/Identification_de _organisme_formation.png
+INPUT ./images/Identification_de _organisme_formation.png
+INPUT ./images/Identification_de _organisme_formation.png
+INPUT ./images/Identification_de _organisme_formation_historique.png
+INPUT ./images/Identification_de _organisme_formation_historique.png
+INPUT ./images/Identification_de _organisme_formation_historique.png
+INPUT ./images/Identification_de _organisme_formation_historique.png
+INPUT ./images/pas_organisme_de_formation.png
+INPUT ./images/pas_organisme_de_formation.png
+INPUT ./images/pas_organisme_de_formation.png
+INPUT ./images/pas_organisme_de_formation.png
+INPUT ./images/modification_Identification_de_adhérent_historique.png
+INPUT ./images/modification_Identification_de_adhérent_historique.png
+INPUT ./images/modification_Identification_de_adhérent_historique.png
+INPUT ./images/modification_Identification_de_adhérent_historique.png
+INPUT ./images/modification_Coordonnées_de_adhérent_historique.png
+INPUT ./images/modification_Coordonnées_de_adhérent_historique.png
+INPUT ./images/modification_Coordonnées_de_adhérent_historique.png
+INPUT ./images/modification_Coordonnées_de_adhérent_historique.png
+INPUT ./images/modification_rib_ecrit_historique.png
+INPUT ./images/modification_rib_ecrit_historique.png
+INPUT ./images/modification_rib_ecrit_historique.png
+INPUT ./images/modification_rib_ecrit_historique.png
+INPUT ./images/modification_import_RIB_historique.png
+INPUT ./images/modification_import_RIB_historique.png
+INPUT ./images/modification_import_RIB_historique.png
+INPUT ./images/modification_import_RIB_historique.png
+INPUT ./images/ajout_salarié.png
+INPUT ./images/ajout_salarié.png
+INPUT ./images/ajout_salarié.png
+INPUT ./images/ajout_salarié.png
+INPUT ./images/ajout_salarié_historique.png
+INPUT ./images/ajout_salarié_historique.png
+INPUT ./images/ajout_salarié_historique.png
+INPUT ./images/ajout_salarié_historique.png
+INPUT ./images/modification_salarié.png
+INPUT ./images/modification_salarié.png
+INPUT ./images/modification_salarié.png
+INPUT ./images/modification_salarié.png
+INPUT ./images/modification_salarié_historique.png
+INPUT ./images/modification_salarié_historique.png
+INPUT ./images/modification_salarié_historique.png
+INPUT ./images/modification_salarié_historique.png
+INPUT ./images/gestion_des_comptes_utilisateurs.png
+INPUT ./images/gestion_des_comptes_utilisateurs.png
+INPUT ./images/gestion_des_comptes_utilisateurs.png
+INPUT ./images/gestion_des_comptes_utilisateurs.png
+INPUT ./images/compte_adhérent_avant.png
+INPUT ./images/compte_adhérent_avant.png
+INPUT ./images/compte_adhérent_avant.png
+INPUT ./images/compte_adhérent_avant.png
+INPUT ./images/compte_adhérent_après.png
+INPUT ./images/compte_adhérent_après.png
+INPUT ./images/compte_adhérent_après.png
+INPUT ./images/compte_adhérent_après.png
 INPUT ./chapitres/competences.tex
 INPUT ./chapitres/competences.tex
 INPUT ./chapitres/competences.tex
