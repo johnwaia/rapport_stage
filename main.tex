@@ -34,6 +34,13 @@
 \usepackage{ifthen}
 \usepackage{etoolbox}
 
+% ===== Affichage des images =====
+\newcommand{\imgwlink}[2]{%
+  \href{https://raw.githubusercontent.com/johnwaia/rapport_stage/main/images/#1}{%
+    \imgw{#1}{#2}%
+  }%
+}
+
 % ===== Style du code =====
 \lstset{
   basicstyle=\ttfamily\small,
