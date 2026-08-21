@@ -10,6 +10,17 @@ comprendre le périmètre exact de la mission~: quelles interfaces sont
 concernées, quelles informations doivent être tracées, et selon quelle
 logique métier.
 
+Le schéma ci-dessous offre une vue d'ensemble du parcours utilisateur au
+sein du logiciel, selon le profil de l'utilisateur connecté~: il sera
+détaillé étape par étape tout au long de ce chapitre.
+
+\begin{figure}[H]
+  \centering
+  \imgwlink{schema_parcours_utilisateur.png}{\textwidth}
+  \caption{Vue d'ensemble du parcours utilisateur}
+  \label{fig:parcours-utilisateur}
+\end{figure}
+
 \section{Deux interfaces distinctes}
 
 Le logiciel FPG repose sur deux interfaces distinctes, destinées à deux
@@ -50,6 +61,25 @@ C'est exclusivement sur cette interface Collaborateur que la
 fonctionnalité d'historisation a été implémentée, dans la mesure où
 c'est elle qui concentre l'essentiel des actions de modification
 apportées à une demande de financement.
+
+\section{Architecture technique globale}
+
+Le schéma ci-dessous présente l'architecture technique globale du
+logiciel FPG, telle qu'observée et manipulée au cours du stage~: le
+frontend Angular, l'API REST Django, le serveur d'authentification
+Keycloak, la base de données PostgreSQL, le stockage de fichiers MinIO,
+ainsi que le serveur de génération de rapports JasperReports.
+
+\begin{figure}[H]
+  \centering
+  \imgw{Schéma_architecture_FPG.pdf}{\textwidth}
+  \caption{Schéma d'architecture technique du logiciel FPG}
+  \label{fig:architecture-fpg}
+\end{figure}
+
+Cette architecture constitue le socle sur lequel repose l'ensemble des
+fonctionnalités présentées dans ce chapitre, et plus particulièrement la
+fonctionnalité d'historisation détaillée au chapitre suivant.
 
 \section{Connexion et redirection}
 
